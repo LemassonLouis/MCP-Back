@@ -16,10 +16,11 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
  *          "order"={"email": "ASC"}
  * },
  *      normalizationContext={"groups"={"read:user"}},
- *      collectionOperations={"get"},
- *      itemOperations={"get", "put"},
+ *      
  * )
  */
+// collectionOperations={},
+// itemOperations={}
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**
