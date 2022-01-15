@@ -44,7 +44,7 @@ class AppFixtures extends Fixture
 
         // $tabIngredient = $manager->getRepository(Ingredient::class)->findAll();
 
-        for ($i = 0; $i < 200; $i++) {
+        for ($i = 0; $i < 20; $i++) {
             $ingredient = new Ingredient;
             $ingredient->setINGName($faker->word())
                 ->setINGAllergen($faker->boolean(20))

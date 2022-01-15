@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\IngredientRepository;
 use ApiPlatform\Core\Annotation\ApiResource;
@@ -67,6 +69,17 @@ class Ingredient
      * @Groups({"read:ingredient"})
      */
     private $ING_date_edit;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Season::class, mappedBy="ingredient")
+     * @Groups({"read:ingredient"})
+     */
+    private $seasons;
+
+    public function __construct()
+    {
+        $this->seasons = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -153,6 +166,33 @@ class Ingredient
     public function setINGDateEdit(?\DateTimeInterface $ING_date_edit): self
     {
         $this->ING_date_edit = $ING_date_edit;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Season[]
+     */
+    public function getSeasons(): Collection
+    {
+        return $this->seasons;
+    }
+
+    public function addSeason(Season $season): self
+    {
+        if (!$this->seasons->contains($season)) {
+            $this->seasons[] = $season;
+            $season->addIngredient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSeason(Season $season): self
+    {
+        if ($this->seasons->removeElement($season)) {
+            $season->removeIngredient($this);
+        }
 
         return $this;
     }
