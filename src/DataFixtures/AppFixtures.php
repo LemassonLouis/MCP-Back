@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Ingredient;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -39,6 +40,23 @@ class AppFixtures extends Fixture
 
             $manager->persist($user);
         }
+        $manager->flush();
+
+        // $tabIngredient = $manager->getRepository(Ingredient::class)->findAll();
+
+        for ($i = 0; $i < 20; $i++) {
+            $ingredient = new Ingredient;
+            $ingredient->setINGName($faker->word())
+                ->setINGAllergen($faker->boolean(20))
+                ->setINGVege($faker->boolean(30))
+                ->setINGPrice($faker->numberBetween(0, 20))
+                ->setINGIsArchive($faker->boolean(80))
+                ->setINGUnit('kg')
+                ->setINGDateEdit(new \DateTimeImmutable());
+
+            $manager->persist($ingredient);
+        }
+
         $manager->flush();
     }
 }
