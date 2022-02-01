@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Category;
 use App\Entity\Ingredient;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -57,6 +58,15 @@ class AppFixtures extends Fixture
             $manager->persist($ingredient);
         }
 
+        $manager->flush();
+
+        for ($i = 0; $i < 5; $i++) {
+            $category = new Category;
+            $category->setName($faker->colorName)
+                ->setIsArchive(false);
+
+            $manager->persist($category);
+        }
         $manager->flush();
     }
 }
