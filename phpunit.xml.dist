@@ -18,10 +18,14 @@
     </php>
 
     <testsuites>
-        <testsuite name="Project Test Suite">
-            <directory>tests</directory>
+        <testsuite name="Project Test Suite Unit">
+            <directory>tests/Unit</directory>
+        </testsuite>
+        <testsuite name="Project Test Suite Func">
+            <directory>tests/Func</directory>
         </testsuite>
     </testsuites>
+
 
     <coverage processUncoveredFiles="true">
         <include>
@@ -39,4 +43,7 @@
         <extension class="Symfony\Component\Panther\ServerExtension" />
     </extensions>
     -->
+    <extensions>
+        <extension class="DAMA\DoctrineTestBundle\PHPUnit\PHPUnitExtension"/>
+    </extensions>
 </phpunit>
