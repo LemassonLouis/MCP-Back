@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Ingredient;
+use App\Entity\Supplier;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -55,6 +56,22 @@ class AppFixtures extends Fixture
                 ->setINGDateEdit(new \DateTimeImmutable());
 
             $manager->persist($ingredient);
+        }
+
+        $manager->flush();
+
+        for ($i = 0; $i < 15; $i++) {
+            $supplier = new Supplier;
+            $supplier->setSUPName($faker->word())
+                ->setSUPAddress($faker->streetAddress())
+                ->setSUPPostalCode($faker->postcode())
+                ->setSUPCity($faker->City())
+                ->setSUPPhone('0654545859')
+                ->setSUPMail($faker->email())
+                ->setSUPIsArchive($faker->boolean(80))
+                ->setSUPDateEdit(new \DateTimeImmutable());
+
+            $manager->persist($supplier);
         }
 
         $manager->flush();
