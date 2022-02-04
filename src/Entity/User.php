@@ -50,6 +50,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $password;
 
+    /**
+     * @ORM\Column(type="string", length=64, nullable=true)
+     * @Groups({"read:user"})
+     */
+    private $firstName;
+
+    /**
+     * @ORM\Column(type="string", length=64, nullable=true)
+     * @Groups({"read:user"})
+     */
+    private $lastName;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     * @Groups({"read:user"})
+     */
+    private $isArchive;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -137,5 +155,41 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getFirstName(): ?string
+    {
+        return $this->firstName;
+    }
+
+    public function setFirstName(?string $firstName): self
+    {
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    public function getLastName(): ?string
+    {
+        return $this->lastName;
+    }
+
+    public function setLastName(?string $lastName): self
+    {
+        $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    public function getIsArchive(): ?bool
+    {
+        return $this->isArchive;
+    }
+
+    public function setIsArchive(?bool $isArchive): self
+    {
+        $this->isArchive = $isArchive;
+
+        return $this;
     }
 }
