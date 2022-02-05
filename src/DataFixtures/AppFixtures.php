@@ -31,7 +31,10 @@ class AppFixtures extends Fixture
             $hash = $this->encoder->hashPassword($user, "password");
 
             $user->setEmail($faker->unique()->safeEmail())
-                ->setPassword($hash);
+                ->setFirstName($faker->firstName())
+                ->setLastName($faker->lastName())
+                ->setPassword($hash)
+                ->setIsArchive($faker->boolean(80));
 
             if ($u === 0) {
                 $user->setRoles(["ROLE_ADMIN"]);

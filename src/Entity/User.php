@@ -38,6 +38,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $email;
 
     /**
+     * @ORM\Column(type="string", length=64, nullable=true)
+     * @Groups({"read:user"})
+     */
+    private $firstName;
+
+    /**
+     * @ORM\Column(type="string", length=64, nullable=true)
+     * @Groups({"read:user"})
+     */
+    private $lastName;
+
+    /**
      * @ORM\Column(type="json")
      * @Groups({"read:user"})
      */
@@ -49,6 +61,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * 
      */
     private $password;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     * @Groups({"read:user"})
+     */
+    private $isArchive;
 
     public function getId(): ?int
     {
@@ -63,6 +81,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setEmail(string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function getFirstName(): ?string
+    {
+        return $this->firstName;
+    }
+
+    public function setFirstName(?string $firstName): self
+    {
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    public function getLastName(): ?string
+    {
+        return $this->lastName;
+    }
+
+    public function setLastName(?string $lastName): self
+    {
+        $this->lastName = $lastName;
 
         return $this;
     }
@@ -137,5 +179,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getIsArchive(): ?bool
+    {
+        return $this->isArchive;
+    }
+
+    public function setIsArchive(?bool $isArchive): self
+    {
+        $this->isArchive = $isArchive;
+
+        return $this;
     }
 }
