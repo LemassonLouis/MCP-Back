@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Category;
+use App\Entity\Image;
 use App\Entity\Ingredient;
 use App\Entity\Supplier;
 use App\Entity\User;
@@ -61,7 +62,17 @@ class AppFixtures extends Fixture
 
             $manager->persist($ingredient);
         }
+        $manager->flush();
 
+        // Table Image
+        for ($img = 0; $img < 20; $img++) {
+            $image = new Image;
+            $image->setIMGName($faker->colorName())
+                ->setIMGUri($faker->imageUrl())
+                ->setIMGDateEdit(new \DateTime());
+
+            $manager->persist($image);
+        }
         $manager->flush();
 
         for ($i = 0; $i < 15; $i++) {
