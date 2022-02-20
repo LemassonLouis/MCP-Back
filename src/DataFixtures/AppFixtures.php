@@ -6,10 +6,11 @@ use Faker\Factory;
 use App\Entity\Step;
 use App\Entity\User;
 use App\Entity\Image;
+use App\Entity\Recipe;
+use App\Entity\Season;
 use App\Entity\Category;
 use App\Entity\Material;
 use App\Entity\Quantity;
-use App\Entity\Recipe;
 use App\Entity\Supplier;
 use App\Entity\Ingredient;
 use Doctrine\Persistence\ObjectManager;
@@ -52,8 +53,6 @@ class AppFixtures extends Fixture
         }
         $manager->flush();
 
-        // $tabIngredient = $manager->getRepository(Ingredient::class)->findAll();
-
         for ($i = 0; $i < 20; $i++) {
             $ingredient = new Ingredient;
             $ingredient->setINGName($faker->word())
@@ -65,6 +64,19 @@ class AppFixtures extends Fixture
                 ->setINGDateEdit(new \DateTimeImmutable());
 
             $manager->persist($ingredient);
+        }
+        $manager->flush();
+
+
+        for ($i = 0; $i < 20; $i++) {
+            $season = new Season;
+            $season->setSEAName($faker->word())
+                ->setSEADateStart(new \DateTime('2020-06-22'))
+                ->setSEADateEnd(new \DateTime('2020-08-25'))
+                ->setSEAIsArchive($faker->boolean(80))
+                ->setSEADateEdit(new \DateTimeImmutable());
+
+            $manager->persist($season);
         }
         $manager->flush();
 
