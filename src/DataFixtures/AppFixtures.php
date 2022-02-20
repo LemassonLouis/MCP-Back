@@ -2,14 +2,15 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Category;
-use App\Entity\Image;
-use App\Entity\Ingredient;
-use App\Entity\Supplier;
-use App\Entity\User;
-use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
+use App\Entity\User;
+use App\Entity\Image;
+use App\Entity\Recipe;
+use App\Entity\Category;
+use App\Entity\Supplier;
+use App\Entity\Ingredient;
+use Doctrine\Persistence\ObjectManager;
+use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
@@ -97,6 +98,24 @@ class AppFixtures extends Fixture
                 ->setIsArchive(false);
 
             $manager->persist($category);
+        }
+        $manager->flush();
+
+        for ($i = 0; $i < 16; $i++) {
+            $recipe = new Recipe;
+            $recipe->setName($faker->words(3, true))
+                ->setComment($faker->text())
+                ->setDuration($faker->dateTime())
+                ->setPortion($faker->randomDigit())
+                ->setInternal($faker->boolean(50))
+                ->setMoment($faker->boolean(50))
+                ->setSellPrice($faker->randomDigit())
+                ->setUsable($faker->boolean(50))
+                ->setIsTechnic($faker->boolean(50))
+                ->setIsArchive($faker->boolean(50))
+                ->setDateEdit(new \DateTimeImmutable());
+
+            $manager->persist($recipe);
         }
         $manager->flush();
     }
