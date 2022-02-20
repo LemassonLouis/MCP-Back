@@ -3,10 +3,13 @@
 namespace App\DataFixtures;
 
 use Faker\Factory;
+use App\Entity\Step;
 use App\Entity\User;
 use App\Entity\Image;
-use App\Entity\Recipe;
 use App\Entity\Category;
+use App\Entity\Material;
+use App\Entity\Quantity;
+use App\Entity\Recipe;
 use App\Entity\Supplier;
 use App\Entity\Ingredient;
 use Doctrine\Persistence\ObjectManager;
@@ -116,6 +119,33 @@ class AppFixtures extends Fixture
                 ->setDateEdit(new \DateTimeImmutable());
 
             $manager->persist($recipe);
+        }
+        $manager->flush();
+
+        for ($i = 0; $i < 10; $i++) {
+            $quantity = new Quantity;
+            $quantity->setQuantity($faker->numberBetween(1, 5));
+
+            $manager->persist($quantity);
+        }
+        $manager->flush();
+
+        for ($i = 0; $i < 15; $i++) {
+            $material = new Material;
+            $material->setMATName($faker->word())
+                ->setMATIsArchive($faker->boolean(80));
+
+            $manager->persist($material);
+        }
+        $manager->flush();
+
+        for ($i = 0; $i < 40; $i++) {
+            $step = new Step;
+            $step->setSTEOrder($faker->numberBetween(1, 5))
+                ->setSTEDescription($faker->text(100))
+                ->setSTEDateEdit(new \DateTimeImmutable());
+
+            $manager->persist($step);
         }
         $manager->flush();
     }
