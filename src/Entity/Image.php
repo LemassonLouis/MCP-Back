@@ -41,6 +41,26 @@ class Image
      */
     private $IMG_date_edit;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Ingredient::class, mappedBy="image", cascade={"persist", "remove"})
+     */
+    private $ingredient;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Material::class, mappedBy="image", cascade={"persist", "remove"})
+     */
+    private $material;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Recipe::class, inversedBy="images")
+     */
+    private $recipe;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Step::class, mappedBy="image", cascade={"persist", "remove"})
+     */
+    private $step;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -78,6 +98,84 @@ class Image
     public function setIMGDateEdit(\DateTimeInterface $IMG_date_edit): self
     {
         $this->IMG_date_edit = $IMG_date_edit;
+
+        return $this;
+    }
+
+    public function getIngredient(): ?Ingredient
+    {
+        return $this->ingredient;
+    }
+
+    public function setIngredient(?Ingredient $ingredient): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($ingredient === null && $this->ingredient !== null) {
+            $this->ingredient->setImage(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($ingredient !== null && $ingredient->getImage() !== $this) {
+            $ingredient->setImage($this);
+        }
+
+        $this->ingredient = $ingredient;
+
+        return $this;
+    }
+
+    public function getMaterial(): ?Material
+    {
+        return $this->material;
+    }
+
+    public function setMaterial(?Material $material): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($material === null && $this->material !== null) {
+            $this->material->setImage(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($material !== null && $material->getImage() !== $this) {
+            $material->setImage($this);
+        }
+
+        $this->material = $material;
+
+        return $this;
+    }
+
+    public function getRecipe(): ?Recipe
+    {
+        return $this->recipe;
+    }
+
+    public function setRecipe(?Recipe $recipe): self
+    {
+        $this->recipe = $recipe;
+
+        return $this;
+    }
+
+    public function getStep(): ?Step
+    {
+        return $this->step;
+    }
+
+    public function setStep(?Step $step): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($step === null && $this->step !== null) {
+            $this->step->setImage(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($step !== null && $step->getImage() !== $this) {
+            $step->setImage($this);
+        }
+
+        $this->step = $step;
 
         return $this;
     }

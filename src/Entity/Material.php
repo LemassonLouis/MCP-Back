@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\MaterialRepository;
 use ApiPlatform\Core\Annotation\ApiResource;
@@ -35,6 +37,21 @@ class Material
      */
     private $MAT_isArchive;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Image::class, inversedBy="material", cascade={"persist", "remove"})
+     */
+    private $image;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Recipe::class, mappedBy="materials")
+     */
+    private $recipes;
+
+    public function __construct()
+    {
+        $this->recipes = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +77,45 @@ class Material
     public function setMATIsArchive(bool $MAT_isArchive): self
     {
         $this->MAT_isArchive = $MAT_isArchive;
+
+        return $this;
+    }
+
+    public function getImage(): ?Image
+    {
+        return $this->image;
+    }
+
+    public function setImage(?Image $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Recipe[]
+     */
+    public function getRecipes(): Collection
+    {
+        return $this->recipes;
+    }
+
+    public function addRecipe(Recipe $recipe): self
+    {
+        if (!$this->recipes->contains($recipe)) {
+            $this->recipes[] = $recipe;
+            $recipe->addMaterial($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRecipe(Recipe $recipe): self
+    {
+        if ($this->recipes->removeElement($recipe)) {
+            $recipe->removeMaterial($this);
+        }
 
         return $this;
     }

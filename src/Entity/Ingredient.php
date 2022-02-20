@@ -76,9 +76,25 @@ class Ingredient
      */
     private $seasons;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Image::class, inversedBy="ingredient", cascade={"persist", "remove"})
+     */
+    private $image;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Supplier::class, inversedBy="ingredients")
+     */
+    private $supplier;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="ingredients")
+     */
+    private $categories;
+
     public function __construct()
     {
         $this->seasons = new ArrayCollection();
+        $this->categories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -193,6 +209,54 @@ class Ingredient
         if ($this->seasons->removeElement($season)) {
             $season->removeIngredient($this);
         }
+
+        return $this;
+    }
+
+    public function getImage(): ?Image
+    {
+        return $this->image;
+    }
+
+    public function setImage(?Image $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function getSupplier(): ?Supplier
+    {
+        return $this->supplier;
+    }
+
+    public function setSupplier(?Supplier $supplier): self
+    {
+        $this->supplier = $supplier;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Category[]
+     */
+    public function getCategories(): Collection
+    {
+        return $this->categories;
+    }
+
+    public function addCategory(Category $category): self
+    {
+        if (!$this->categories->contains($category)) {
+            $this->categories[] = $category;
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Category $category): self
+    {
+        $this->categories->removeElement($category);
 
         return $this;
     }

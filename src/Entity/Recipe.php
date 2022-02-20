@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\RecipeRepository;
 use ApiPlatform\Core\Annotation\ApiResource;
@@ -73,6 +75,28 @@ class Recipe
      * @ORM\Column(type="date", nullable=true)
      */
     private $date_edit;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="recipes")
+     */
+    private $categories;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Material::class, inversedBy="recipes")
+     */
+    private $materials;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="recipe")
+     */
+    private $images;
+
+    public function __construct()
+    {
+        $this->categories = new ArrayCollection();
+        $this->materials = new ArrayCollection();
+        $this->images = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -207,6 +231,84 @@ class Recipe
     public function setDateEdit(?\DateTimeInterface $date_edit): self
     {
         $this->date_edit = $date_edit;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Category[]
+     */
+    public function getCategories(): Collection
+    {
+        return $this->categories;
+    }
+
+    public function addCategory(Category $category): self
+    {
+        if (!$this->categories->contains($category)) {
+            $this->categories[] = $category;
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Category $category): self
+    {
+        $this->categories->removeElement($category);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Material[]
+     */
+    public function getMaterials(): Collection
+    {
+        return $this->materials;
+    }
+
+    public function addMaterial(Material $material): self
+    {
+        if (!$this->materials->contains($material)) {
+            $this->materials[] = $material;
+        }
+
+        return $this;
+    }
+
+    public function removeMaterial(Material $material): self
+    {
+        $this->materials->removeElement($material);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Image[]
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Image $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setRecipe($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Image $image): self
+    {
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getRecipe() === $this) {
+                $image->setRecipe(null);
+            }
+        }
 
         return $this;
     }
