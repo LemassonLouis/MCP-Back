@@ -2,14 +2,17 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Category;
-use App\Entity\Image;
-use App\Entity\Ingredient;
-use App\Entity\Supplier;
-use App\Entity\User;
-use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
+use App\Entity\Step;
+use App\Entity\User;
+use App\Entity\Image;
+use App\Entity\Category;
+use App\Entity\Material;
+use App\Entity\Quantity;
+use App\Entity\Supplier;
+use App\Entity\Ingredient;
+use Doctrine\Persistence\ObjectManager;
+use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
@@ -97,6 +100,33 @@ class AppFixtures extends Fixture
                 ->setIsArchive(false);
 
             $manager->persist($category);
+        }
+        $manager->flush();
+
+        for ($i = 0; $i < 10; $i++) {
+            $quantity = new Quantity;
+            $quantity->setQuantity($faker->numberBetween(1, 5));
+
+            $manager->persist($quantity);
+        }
+        $manager->flush();
+
+        for ($i = 0; $i < 15; $i++) {
+            $material = new Material;
+            $material->setMATName($faker->word())
+                ->setMATIsArchive($faker->boolean(80));
+
+            $manager->persist($material);
+        }
+        $manager->flush();
+
+        for ($i = 0; $i < 40; $i++) {
+            $step = new Step;
+            $step->setSTEOrder($faker->numberBetween(1, 5))
+                ->setSTEDescription($faker->text(100))
+                ->setSTEDateEdit(new \DateTimeImmutable());
+
+            $manager->persist($step);
         }
         $manager->flush();
     }
