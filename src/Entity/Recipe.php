@@ -54,7 +54,7 @@ class Recipe
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $sellPrice;
+    private $REC_sellPrice;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
