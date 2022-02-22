@@ -24,32 +24,32 @@ class Recipe
     /**
      * @ORM\Column(type="string", length=50)
      */
-    private $name;
+    private $REC_name;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $comment;
+    private $REC_comment;
 
     /**
      * @ORM\Column(type="time", nullable=true)
      */
-    private $duration;
+    private $REC_duration;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $portion;
+    private $REC_portion;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $internal;
+    private $REC_internal;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $moment;
+    private $REC_moment;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -59,22 +59,22 @@ class Recipe
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $usable;
+    private $REC_usable;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $isTechnic;
+    private $REC_isTechnic;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $isArchive;
+    private $REC_isArchive;
 
     /**
      * @ORM\Column(type="date", nullable=true)
      */
-    private $date_edit;
+    private $REC_date_edit;
 
     /**
      * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="recipes")
@@ -105,132 +105,132 @@ class Recipe
 
     public function getName(): ?string
     {
-        return $this->name;
+        return $this->REC_name;
     }
 
-    public function setName(string $name): self
+    public function setName(string $REC_name): self
     {
-        $this->name = $name;
+        $this->REC_name = $REC_name;
 
         return $this;
     }
 
     public function getComment(): ?string
     {
-        return $this->comment;
+        return $this->REC_comment;
     }
 
-    public function setComment(?string $comment): self
+    public function setComment(?string $REC_comment): self
     {
-        $this->comment = $comment;
+        $this->REC_comment = $REC_comment;
 
         return $this;
     }
 
     public function getDuration(): ?\DateTimeInterface
     {
-        return $this->duration;
+        return $this->REC_duration;
     }
 
-    public function setDuration(?\DateTimeInterface $duration): self
+    public function setDuration(?\DateTimeInterface $REC_duration): self
     {
-        $this->duration = $duration;
+        $this->REC_duration = $REC_duration;
 
         return $this;
     }
 
     public function getPortion(): ?int
     {
-        return $this->portion;
+        return $this->REC_portion;
     }
 
-    public function setPortion(?int $portion): self
+    public function setPortion(?int $REC_portion): self
     {
-        $this->portion = $portion;
+        $this->REC_portion = $REC_portion;
 
         return $this;
     }
 
     public function getInternal(): ?bool
     {
-        return $this->internal;
+        return $this->REC_internal;
     }
 
-    public function setInternal(?bool $internal): self
+    public function setInternal(?bool $REC_internal): self
     {
-        $this->internal = $internal;
+        $this->REC_internal = $REC_internal;
 
         return $this;
     }
 
     public function getMoment(): ?bool
     {
-        return $this->moment;
+        return $this->REC_moment;
     }
 
-    public function setMoment(?bool $moment): self
+    public function setMoment(?bool $REC_moment): self
     {
-        $this->moment = $moment;
+        $this->REC_moment = $REC_moment;
 
         return $this;
     }
 
     public function getSellPrice(): ?int
     {
-        return $this->sellPrice;
+        return $this->REC_sellPrice;
     }
 
-    public function setSellPrice(?int $sellPrice): self
+    public function setSellPrice(?int $REC_sellPrice): self
     {
-        $this->sellPrice = $sellPrice;
+        $this->REC_sellPrice = $REC_sellPrice;
 
         return $this;
     }
 
     public function getUsable(): ?bool
     {
-        return $this->usable;
+        return $this->REC_usable;
     }
 
-    public function setUsable(?bool $usable): self
+    public function setUsable(?bool $REC_usable): self
     {
-        $this->usable = $usable;
+        $this->REC_usable = $REC_usable;
 
         return $this;
     }
 
     public function getIsTechnic(): ?bool
     {
-        return $this->isTechnic;
+        return $this->REC_isTechnic;
     }
 
-    public function setIsTechnic(?bool $isTechnic): self
+    public function setIsTechnic(?bool $REC_isTechnic): self
     {
-        $this->isTechnic = $isTechnic;
+        $this->REC_isTechnic = $REC_isTechnic;
 
         return $this;
     }
 
     public function getIsArchive(): ?bool
     {
-        return $this->isArchive;
+        return $this->REC_isArchive;
     }
 
-    public function setIsArchive(?bool $isArchive): self
+    public function setIsArchive(?bool $REC_isArchive): self
     {
-        $this->isArchive = $isArchive;
+        $this->REC_isArchive = $REC_isArchive;
 
         return $this;
     }
 
     public function getDateEdit(): ?\DateTimeInterface
     {
-        return $this->date_edit;
+        return $this->REC_date_edit;
     }
 
-    public function setDateEdit(?\DateTimeInterface $date_edit): self
+    public function setDateEdit(?\DateTimeInterface $REC_date_edit): self
     {
-        $this->date_edit = $date_edit;
+        $this->REC_date_edit = $REC_date_edit;
 
         return $this;
     }

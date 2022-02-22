@@ -27,13 +27,13 @@ security:
         password_path: password
         success_handler: lexik_jwt_authentication.handler.authentication_success
         failure_handler: lexik_jwt_authentication.handler.authentication_failure
-    # users:
-    #   pattern: ^/api/users
-    #   methods: [PUT, PATCH, DELETE]
-    #   stateless: true
-    #   guard:
-    #     authenticators:
-    #       - lexik_jwt_authentication.jwt_token_authenticator
+    users:
+      pattern: ^/api/users
+      methods: [PUT, PATCH, DELETE]
+      stateless: true
+      guard:
+        authenticators:
+          - lexik_jwt_authentication.jwt_token_authenticator
     # ingredients:
     #   pattern: ^/api/ingredients
     #   methods: [POST, PUT, PATCH, DELETE]
@@ -59,14 +59,14 @@ security:
   # Easy way to control access for large sections of your site
   # Note: Only the *first* access control that matches will be used
   access_control:
-    - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
     # - { path: ^/admin, roles: ROLE_ADMIN }
     # - { path: ^/*, roles: ROLE_USER }
-    # - {
-    #     path: ^/api/users,
-    #     roles: IS_AUTHENTICATED_FULLY,
-    #     methods: [PUT, PATCH, DELETE],
-    #   }
+    - {
+        path: ^/api/users,
+        roles: IS_AUTHENTICATED_FULLY,
+        methods: [PUT, PATCH, DELETE],
+      }
     # - {
     #     path: ^/api/ingredients,
     #     roles: IS_AUTHENTICATED_FULLY,
