@@ -16,6 +16,10 @@ composer install
 ```
 symfony console doctrine:database:create
 ```
+or
+```
+php bin/console doctrine:database:create
+```
 
 - Migrate the migrations :
 
@@ -23,17 +27,26 @@ symfony console doctrine:database:create
 symfony console make:migration
 symfony console d:m:m --no-interaction
 ```
+or
+```
+php bin/console make:migration
+php bin/console d:m:m --no-interaction
+```
 
 - Load the fixtures :
 
 ```
 symfony console d:f:l --no-interaction
 ```
+or
+```
+php bin/console d:f:l --no-interaction
+```
 
 ## Run the server :
 
 ```
-php -S 127.0.0.1:XXXX -t public
+php -S xxx.xxx.xxx.xxx:XXXX -t public
 ```
 
-If you want to see the API URL available add `/api` to the URL
+If you want to see the API URL available add `/api` to the URL.
