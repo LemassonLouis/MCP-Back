@@ -46,3 +46,26 @@ php -S xxx.xxx.xxx.xxx:XXXX -t public
 ## Other things :
 
 - If you want to see the API URL available add `/api` to the URL.
+
+## Test :
+
+- Change the DATABASE_URL variable in the .env.test
+
+- Database creation : 
+
+```
+php bin/console --env=test doctrine:database:create 
+``` 
+
+- Creation of schemas : 
+
+```
+php bin/console --env=test doctrine:schema:create
+```
+
+- Load the fixtures : 
+```
+symfony console d:m:m --env=test
+```
+
+- Run all tests : php bin/phpunit
