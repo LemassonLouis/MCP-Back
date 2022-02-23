@@ -68,4 +68,8 @@ php bin/console --env=test doctrine:schema:create
 symfony console d:m:m --env=test
 ```
 
-- Run all tests : php bin/phpunit
+- Run all tests : `
+
+```
+php bin/phpunit
+```
