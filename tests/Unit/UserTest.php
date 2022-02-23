@@ -26,9 +26,28 @@ class UserTest extends TestCase
         self::assertEquals($value, $this->user->getEmail());
     }
 
+    public function testGetFirtName(): void
+    {
+        $value = 'John';
+
+        $response = $this->user->setFirstName($value);
+
+        self::assertInstanceOf(User::class, $response);
+        self::assertEquals($value, $this->user->getFirstName());
+    }
+
+    public function testGetLastName(): void
+    {
+        $value = 'Doe';
+
+        $response = $this->user->setLastName($value);
+
+        self::assertInstanceOf(User::class, $response);
+        self::assertEquals($value, $this->user->getLastName());
+    }
+
     public function testGetRoles(): void
     {
-
         $value = ['ROLE_USER'];
 
         $response = $this->user->setRoles($value);
@@ -45,5 +64,15 @@ class UserTest extends TestCase
 
         self::assertInstanceOf(User::class, $response);
         self::assertEquals($value, $this->user->getPassword());
+    }
+
+    public function testIsArchive(): void
+    {
+        $value = true;
+
+        $response = $this->user->setIsArchive($value);
+
+        self::assertInstanceOf(User::class, $response);
+        self::assertEquals($value, $this->user->getIsArchive());
     }
 }

@@ -2,16 +2,19 @@
 
 namespace App\Tests\Func;
 
-use Faker\Factory;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class UserTest extends AbstractEndPoint
+class StepTest extends AbstractEndPoint
 {
-    private string $userPayload = '{"email":"%s", "firstName":"John", "lastName":"Doe", "password": "password"}';
-    public function testGetUsers(): void
+    private string $stepPayload = '{
+        "sTEOrder": 1,
+        "sTEDescription": "Description",
+        "sTEDateEdit": "2022-02-23T12:01:22.129Z"
+    }';
+    public function testGetSteps(): void
     {
-        $response = $this->getResponseFromRequest(Request::METHOD_GET, 'api/users');
+        $response = $this->getResponseFromRequest(Request::METHOD_GET, 'api/steps');
         $responseContent = $response->getContent();
         $responseDecode = json_decode($responseContent);
 
@@ -22,11 +25,11 @@ class UserTest extends AbstractEndPoint
         self::assertNotEmpty($responseDecode);
     }
 
-    public function testPostUser(): void
+    public function testPostStep(): void
     {
         $response = $this->getResponseFromRequest(
             Request::METHOD_POST,
-            'api/users',
+            'api/steps',
             $this->getPayload()
         );
         $responseContent = $response->getContent();
@@ -41,7 +44,6 @@ class UserTest extends AbstractEndPoint
 
     private function getPayload(): string
     {
-        $faker = Factory::create('fr_FR');
-        return sprintf($this->userPayload, $faker->email());
+        return sprintf($this->stepPayload);
     }
 }
