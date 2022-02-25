@@ -34,7 +34,48 @@ class AppFixtures extends Fixture
 
         $faker = Factory::create('fr_FR');
 
-        // USER
+        // TYPICAL USERS
+        $userAdmin = new User;
+        $hash = $this->encoder->hashPassword($userAdmin, "password");
+        $userAdmin->setEmail("admin1@email.com")
+            ->setFirstName("Admin1")
+            ->setLastName("MCP")
+            ->setPassword("Admin1")
+            ->setIsArchive(false)
+            ->setRoles(["ROLE_ADMIN"]);
+        $manager->persist($userAdmin);
+
+        $userAdminArchive = new User;
+        $hash = $this->encoder->hashPassword($userAdminArchive, "password");
+        $userAdminArchive->setEmail("admin2@email.com")
+            ->setFirstName("Admin2")
+            ->setLastName("MCP")
+            ->setPassword("Admin2")
+            ->setIsArchive(true)
+            ->setRoles(["ROLE_ADMIN"]);
+        $manager->persist($userAdminArchive);
+
+        $userAuthor = new User;
+        $hash = $this->encoder->hashPassword($userAuthor, "password");
+        $userAuthor->setEmail("author1@email.com")
+            ->setFirstName("Author1")
+            ->setLastName("MCP")
+            ->setPassword("Author1")
+            ->setIsArchive(false)
+            ->setRoles(["ROLE_AUTHOR"]);
+        $manager->persist($userAuthor);
+
+        $userAuthorArchive = new User;
+        $hash = $this->encoder->hashPassword($userAuthorArchive, "password");
+        $userAuthorArchive->setEmail("author2@email.com")
+            ->setFirstName("Author2")
+            ->setLastName("MCP")
+            ->setPassword("Author2")
+            ->setIsArchive(true)
+            ->setRoles(["ROLE_AUTHOR"]);
+        $manager->persist($userAuthorArchive);
+
+        // RANDOM USERS
         for ($u = 0; $u < 5; $u++) {
             $user = new User;
             $hash = $this->encoder->hashPassword($user, "password");
@@ -43,11 +84,8 @@ class AppFixtures extends Fixture
                 ->setFirstName($faker->firstName())
                 ->setLastName($faker->lastName())
                 ->setPassword($hash)
-                ->setIsArchive($faker->boolean(80));
-
-            if ($u === 0) {
-                $user->setRoles(["ROLE_ADMIN"]);
-            }
+                ->setIsArchive($faker->boolean())
+                ->setRoles(["ROLE_USER"]);
 
             $manager->persist($user);
         }
