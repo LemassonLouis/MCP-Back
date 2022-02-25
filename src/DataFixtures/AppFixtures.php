@@ -45,16 +45,6 @@ class AppFixtures extends Fixture
             ->setRoles(["ROLE_ADMIN"]);
         $manager->persist($userAdmin);
 
-        $userAdminArchive = new User;
-        $hash = $this->encoder->hashPassword($userAdminArchive, "password");
-        $userAdminArchive->setEmail("admin2@email.com")
-            ->setFirstName("Admin2")
-            ->setLastName("MCP")
-            ->setPassword("Admin2")
-            ->setIsArchive(true)
-            ->setRoles(["ROLE_ADMIN"]);
-        $manager->persist($userAdminArchive);
-
         $userAuthor = new User;
         $hash = $this->encoder->hashPassword($userAuthor, "password");
         $userAuthor->setEmail("author1@email.com")
@@ -64,16 +54,6 @@ class AppFixtures extends Fixture
             ->setIsArchive(false)
             ->setRoles(["ROLE_AUTHOR"]);
         $manager->persist($userAuthor);
-
-        $userAuthorArchive = new User;
-        $hash = $this->encoder->hashPassword($userAuthorArchive, "password");
-        $userAuthorArchive->setEmail("author2@email.com")
-            ->setFirstName("Author2")
-            ->setLastName("MCP")
-            ->setPassword("Author2")
-            ->setIsArchive(true)
-            ->setRoles(["ROLE_AUTHOR"]);
-        $manager->persist($userAuthorArchive);
 
         // RANDOM USERS
         for ($u = 0; $u < 5; $u++) {
@@ -90,6 +70,8 @@ class AppFixtures extends Fixture
             $manager->persist($user);
         }
         $manager->flush();
+
+
 
         // INGREDIENT
         for ($i = 0; $i < 20; $i++) {
