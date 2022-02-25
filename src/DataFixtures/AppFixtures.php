@@ -34,6 +34,7 @@ class AppFixtures extends Fixture
 
         $faker = Factory::create('fr_FR');
 
+        // USER
         for ($u = 0; $u < 5; $u++) {
             $user = new User;
             $hash = $this->encoder->hashPassword($user, "password");
@@ -48,11 +49,11 @@ class AppFixtures extends Fixture
                 $user->setRoles(["ROLE_ADMIN"]);
             }
 
-
             $manager->persist($user);
         }
         $manager->flush();
 
+        // INGREDIENT
         for ($i = 0; $i < 20; $i++) {
             $ingredient = new Ingredient;
             $ingredient->setINGName($faker->word())
@@ -67,7 +68,7 @@ class AppFixtures extends Fixture
         }
         $manager->flush();
 
-
+        // SEASON
         for ($i = 0; $i < 20; $i++) {
             $season = new Season;
             $season->setSEAName($faker->word())
@@ -80,7 +81,7 @@ class AppFixtures extends Fixture
         }
         $manager->flush();
 
-        // Table Image
+        // IMAGE
         for ($img = 0; $img < 20; $img++) {
             $image = new Image;
             $image->setIMGName($faker->colorName())
@@ -91,6 +92,7 @@ class AppFixtures extends Fixture
         }
         $manager->flush();
 
+        // SUPPLIER
         for ($i = 0; $i < 15; $i++) {
             $supplier = new Supplier;
             $supplier->setSUPName($faker->word())
@@ -104,9 +106,9 @@ class AppFixtures extends Fixture
 
             $manager->persist($supplier);
         }
-
         $manager->flush();
 
+        // CATEGORY
         for ($i = 0; $i < 5; $i++) {
             $category = new Category;
             $category->setName($faker->colorName)
@@ -116,6 +118,7 @@ class AppFixtures extends Fixture
         }
         $manager->flush();
 
+        // RECIPE
         for ($i = 0; $i < 16; $i++) {
             $recipe = new Recipe;
             $recipe->setName($faker->words(3, true))
@@ -134,6 +137,7 @@ class AppFixtures extends Fixture
         }
         $manager->flush();
 
+        // QUANTITY (LINK_RECIPE_INGREDIENT)
         for ($i = 0; $i < 10; $i++) {
             $quantity = new Quantity;
             $quantity->setQuantity($faker->numberBetween(1, 5));
@@ -142,6 +146,7 @@ class AppFixtures extends Fixture
         }
         $manager->flush();
 
+        // MATERIAL
         for ($i = 0; $i < 15; $i++) {
             $material = new Material;
             $material->setMATName($faker->word())
@@ -151,6 +156,7 @@ class AppFixtures extends Fixture
         }
         $manager->flush();
 
+        // STEP
         for ($i = 0; $i < 40; $i++) {
             $step = new Step;
             $step->setSTEOrder($faker->numberBetween(1, 5))
