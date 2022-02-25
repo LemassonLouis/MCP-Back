@@ -37,30 +37,39 @@ class AppFixtures extends Fixture
         // TYPICAL USERS
         $userAdmin = new User;
         $hash = $this->encoder->hashPassword($userAdmin, "password");
-        $userAdmin->setEmail("admin1@email.com")
-            ->setFirstName("Admin1")
+
+        $userAdmin
+            ->setEmail("admin@email.com")
+            ->setFirstName("Admin")
             ->setLastName("MCP")
-            ->setPassword("Admin1")
+            ->setPassword("Admin")
             ->setIsArchive(false)
             ->setRoles(["ROLE_ADMIN"]);
+
         $manager->persist($userAdmin);
+
 
         $userAuthor = new User;
         $hash = $this->encoder->hashPassword($userAuthor, "password");
-        $userAuthor->setEmail("author1@email.com")
-            ->setFirstName("Author1")
+
+        $userAuthor
+            ->setEmail("author@email.com")
+            ->setFirstName("Author")
             ->setLastName("MCP")
-            ->setPassword("Author1")
+            ->setPassword("Author")
             ->setIsArchive(false)
             ->setRoles(["ROLE_AUTHOR"]);
+
         $manager->persist($userAuthor);
+
 
         // RANDOM USERS
         for ($u = 0; $u < 5; $u++) {
             $user = new User;
             $hash = $this->encoder->hashPassword($user, "password");
 
-            $user->setEmail($faker->unique()->safeEmail())
+            $user
+                ->setEmail($faker->unique()->safeEmail())
                 ->setFirstName($faker->firstName())
                 ->setLastName($faker->lastName())
                 ->setPassword($hash)
@@ -72,8 +81,7 @@ class AppFixtures extends Fixture
         $manager->flush();
 
 
-
-        // INGREDIENT
+        // INGREDIENTS
         for ($i = 0; $i < 20; $i++) {
             $ingredient = new Ingredient;
             $ingredient->setINGName($faker->word())
@@ -88,7 +96,8 @@ class AppFixtures extends Fixture
         }
         $manager->flush();
 
-        // SEASON
+
+        // SEASONS
         for ($i = 0; $i < 20; $i++) {
             $season = new Season;
             $season->setSEAName($faker->word())
@@ -101,7 +110,8 @@ class AppFixtures extends Fixture
         }
         $manager->flush();
 
-        // IMAGE
+
+        // IMAGES
         for ($img = 0; $img < 20; $img++) {
             $image = new Image;
             $image->setIMGName($faker->colorName())
@@ -112,7 +122,8 @@ class AppFixtures extends Fixture
         }
         $manager->flush();
 
-        // SUPPLIER
+
+        // SUPPLIERS
         for ($i = 0; $i < 15; $i++) {
             $supplier = new Supplier;
             $supplier->setSUPName($faker->word())
@@ -128,7 +139,8 @@ class AppFixtures extends Fixture
         }
         $manager->flush();
 
-        // CATEGORY
+
+        // CATEGORYS
         for ($i = 0; $i < 5; $i++) {
             $category = new Category;
             $category->setName($faker->colorName)
@@ -138,7 +150,8 @@ class AppFixtures extends Fixture
         }
         $manager->flush();
 
-        // RECIPE
+
+        // RECIPES
         for ($i = 0; $i < 16; $i++) {
             $recipe = new Recipe;
             $recipe->setName($faker->words(3, true))
@@ -157,7 +170,8 @@ class AppFixtures extends Fixture
         }
         $manager->flush();
 
-        // QUANTITY (LINK_RECIPE_INGREDIENT)
+
+        // QUANTITYS (LINK_RECIPE_INGREDIENT)
         for ($i = 0; $i < 10; $i++) {
             $quantity = new Quantity;
             $quantity->setQuantity($faker->numberBetween(1, 5));
@@ -166,7 +180,8 @@ class AppFixtures extends Fixture
         }
         $manager->flush();
 
-        // MATERIAL
+
+        // MATERIALS
         for ($i = 0; $i < 15; $i++) {
             $material = new Material;
             $material->setMATName($faker->word())
@@ -176,7 +191,8 @@ class AppFixtures extends Fixture
         }
         $manager->flush();
 
-        // STEP
+
+        // STEPS
         for ($i = 0; $i < 40; $i++) {
             $step = new Step;
             $step->setSTEOrder($faker->numberBetween(1, 5))
