@@ -36,13 +36,13 @@ class AppFixtures extends Fixture
 
         // TYPICAL USERS
         $userAdmin = new User;
-        $hash = $this->encoder->hashPassword($userAdmin, "password");
+        $hash = $this->encoder->hashPassword($userAdmin, "Admin");
 
         $userAdmin
             ->setEmail("admin@email.com")
             ->setFirstName("Admin")
             ->setLastName("MCP")
-            ->setPassword("Admin")
+            ->setPassword($hash)
             ->setIsArchive(false)
             ->setRoles(["ROLE_ADMIN"]);
 
@@ -50,13 +50,13 @@ class AppFixtures extends Fixture
 
 
         $userAuthor = new User;
-        $hash = $this->encoder->hashPassword($userAuthor, "password");
+        $hash = $this->encoder->hashPassword($userAuthor, "Author");
 
         $userAuthor
             ->setEmail("author@email.com")
             ->setFirstName("Author")
             ->setLastName("MCP")
-            ->setPassword("Author")
+            ->setPassword($hash)
             ->setIsArchive(false)
             ->setRoles(["ROLE_AUTHOR"]);
 
@@ -64,7 +64,7 @@ class AppFixtures extends Fixture
 
 
         // RANDOM USERS
-        for ($u = 0; $u < 5; $u++) {
+        for ($u = 0; $u < 4; $u++) {
             $user = new User;
             $hash = $this->encoder->hashPassword($user, "password");
 
