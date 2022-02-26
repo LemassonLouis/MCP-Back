@@ -13,6 +13,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ORM\Entity(repositoryClass=MaterialRepository::class)
  * @ApiResource(
  *      normalizationContext={"groups"={"read:material"}},
+ *      collectionOperations={"GET","POST"},
+ *      itemOperations={"GET", "PUT", "DELETE"}
  * )
  */
 class Material

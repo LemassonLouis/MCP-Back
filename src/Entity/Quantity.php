@@ -8,7 +8,9 @@ use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
  * @ORM\Entity(repositoryClass=QuantityRepository::class)
- * @ApiResource
+ * @ApiResource(
+ *      collectionOperations={"GET","POST"},
+ *      itemOperations={"GET", "PUT", "DELETE"})
  */
 class Quantity
 {

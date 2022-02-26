@@ -10,8 +10,12 @@ use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
  * @ORM\Entity(repositoryClass=RecipeRepository::class)
+ * @ApiResource(
+ *      collectionOperations={"GET","POST"},
+ *      itemOperations={"GET", "PUT", "DELETE"}
+ * )
  */
-#[ApiResource]
+
 class Recipe
 {
     /**

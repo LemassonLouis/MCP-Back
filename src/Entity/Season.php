@@ -2,13 +2,20 @@
 
 namespace App\Entity;
 
-use App\Repository\SeasonRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\SeasonRepository;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=SeasonRepository::class)
+ * @ApiResource(
+ *      normalizationContext={"groups"={"read:season"}},
+ *      collectionOperations={"GET","POST"},
+ *      itemOperations={"GET", "PUT", "DELETE"}
+ * )
  */
 class Season
 {
@@ -16,36 +23,43 @@ class Season
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"read:season"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"read:season"})
      */
     private $SEA_name;
 
     /**
      * @ORM\Column(type="date", nullable=true)
+     * @Groups({"read:season"})
      */
     private $SEA_date_start;
 
     /**
      * @ORM\Column(type="date", nullable=true)
+     * @Groups({"read:season"})
      */
     private $SEA_date_end;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
+     * @Groups({"read:season"})
      */
     private $SEA_isArchive;
 
     /**
      * @ORM\Column(type="date", nullable=true)
+     * @Groups({"read:season"})
      */
     private $SEA_date_edit;
 
     /**
      * @ORM\ManyToMany(targetEntity=Ingredient::class, inversedBy="seasons")
+     * @Groups({"read:season"})
      */
     private $ingredient;
 
