@@ -2,67 +2,83 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\SupplierRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\SupplierRepository;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=SupplierRepository::class)
+ * @ApiResource(
+ *      normalizationContext={"groups"={"read:supplier"}},
+ *      collectionOperations={"GET","POST"},
+ *      itemOperations={"GET", "PUT", "DELETE"}
+ * )
  */
-#[ApiResource]
+
 class Supplier
 {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"read:supplier"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Groups({"read:supplier"})
      */
     private $SUP_name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"read:supplier"})
      */
     private $SUP_address;
 
     /**
      * @ORM\Column(type="string", length=10)
+     * @Groups({"read:supplier"})
      */
     private $SUP_postal_code;
 
     /**
      * @ORM\Column(type="string", length=30)
+     * @Groups({"read:supplier"})
      */
     private $SUP_city;
 
     /**
      * @ORM\Column(type="string", length=15)
+     * @Groups({"read:supplier"})
      */
     private $SUP_phone;
 
     /**
      * @ORM\Column(type="string", length=40)
+     * @Groups({"read:supplier"})
      */
     private $SUP_mail;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups({"read:supplier"})
      */
     private $SUP_isArchive;
 
     /**
      * @ORM\Column(type="date")
+     * @Groups({"read:supplier"})
      */
     private $SUP_date_edit;
 
     /**
      * @ORM\OneToMany(targetEntity=Ingredient::class, mappedBy="supplier")
+     * @Groups({"read:supplier"})
      */
     private $ingredients;
 

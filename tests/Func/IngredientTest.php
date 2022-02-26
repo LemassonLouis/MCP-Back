@@ -26,8 +26,6 @@ class IngredientTest extends AbstractEndPoint
         self::assertEquals(Response::HTTP_OK, $response->getStatusCode());
         self::assertJson($responseContent);
         self::assertNotEmpty($responseDecode);
-
-        var_dump($responseDecode);
     }
 
     public function testPostIngredient(): void
@@ -39,8 +37,6 @@ class IngredientTest extends AbstractEndPoint
         );
         $responseContent = $response->getContent();
         $responseDecode = json_decode($responseContent);
-
-        var_dump($responseDecode);
 
         self::assertEquals(Response::HTTP_CREATED, $response->getStatusCode());
         self::assertJson($responseContent);

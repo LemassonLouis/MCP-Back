@@ -12,15 +12,12 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ApiResource(
- *      attributes={
- *          "order"={"email": "ASC"}
- * },
  *      normalizationContext={"groups"={"read:user"}},
+ *      collectionOperations={"GET","POST"},
+ *      itemOperations={"GET", "PUT", "DELETE"}
  *      
  * )
  */
-// collectionOperations={},
-// itemOperations={}
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**

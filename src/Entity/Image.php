@@ -11,6 +11,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ORM\Entity(repositoryClass=ImageRepository::class)
  * @ApiResource(
  *      normalizationContext={"groups"={"read:image"}},
+ *      collectionOperations={"GET","POST"},
+ *      itemOperations={"GET", "PUT", "DELETE"}
  * )
  */
 class Image

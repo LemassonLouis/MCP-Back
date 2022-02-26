@@ -16,6 +16,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *          "order"={"ING_name": "ASC"}
  *      },
  *      normalizationContext={"groups"={"read:ingredient"}},
+ *      collectionOperations={"GET","POST"},
+ *      itemOperations={"GET", "PUT", "DELETE"}
  * )
  */
 class Ingredient

@@ -49,23 +49,29 @@ php -S xxx.xxx.xxx.xxx:XXXX -t public
 
 ## Test :
 
-- Change the DATABASE_URL variable in the .env.test
+- Change the DATABASE_URL variable in the `.env.test`
 
 - Database creation : 
 
 ```
+symfony console --env=test doctrine:database:create
+ou
 php bin/console --env=test doctrine:database:create 
 ``` 
 
 - Creation of schemas : 
 
 ```
+symfony console --env=test doctrine:schema:create
+ou
 php bin/console --env=test doctrine:schema:create
 ```
 
 - Load the fixtures : 
 ```
 symfony console d:m:m --env=test
+ou
+php bin/console d:m:m --env=test
 ```
 
 - Run all tests :
