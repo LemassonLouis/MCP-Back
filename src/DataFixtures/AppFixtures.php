@@ -34,6 +34,20 @@ class AppFixtures extends Fixture
 
         $faker = Factory::create('fr_FR');
 
+        $userAdmin = new User;
+        $hash = $this->encoder->hashPassword($userAdmin, "Admin");
+
+        $userAdmin
+            ->setEmail("admin@email.com")
+            ->setFirstName("Admin")
+            ->setLastName("MCP")
+            ->setPassword($hash)
+            ->setIsArchive(true)
+            ->setRoles(["ROLE_ADMIN"]);
+
+        $manager->persist($userAdmin);
+
+
         for ($u = 0; $u < 5; $u++) {
             $user = new User;
             $hash = $this->encoder->hashPassword($user, "password");
@@ -43,10 +57,6 @@ class AppFixtures extends Fixture
                 ->setLastName($faker->lastName())
                 ->setPassword($hash)
                 ->setIsArchive($faker->boolean(80));
-
-            if ($u === 0) {
-                $user->setRoles(["ROLE_ADMIN"]);
-            }
 
 
             $manager->persist($user);
