@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class LoginTest extends AbstractEndPoint
 {
-    private string $userLoginPayload = '{"username":"anais.leduc@fischer.fr", "password": "password"}';
+    private string $userLoginPayload = '{"username":"admin@email.com", "password": "Admin"}';
 
     public function testLogin(): void
     {
@@ -18,8 +18,6 @@ class LoginTest extends AbstractEndPoint
         );
         $responseContent = $response->getContent();
         $responseDecode = json_decode($responseContent);
-
-        var_dump($responseDecode);
 
         self::assertEquals(Response::HTTP_OK, $response->getStatusCode());
         self::assertJson($responseContent);
