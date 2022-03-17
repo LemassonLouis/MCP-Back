@@ -35,43 +35,43 @@ class Supplier
     private $SUP_name;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"read:supplier"})
      */
     private $SUP_address;
 
     /**
-     * @ORM\Column(type="string", length=10)
+     * @ORM\Column(type="string", length=10, nullable=true)
      * @Groups({"read:supplier"})
      */
-    private $SUP_postal_code;
+    private $SUP_zipCode;
 
     /**
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(type="string", length=30, nullable=true)
      * @Groups({"read:supplier"})
      */
     private $SUP_city;
 
     /**
-     * @ORM\Column(type="string", length=15)
+     * @ORM\Column(type="string", length=15, nullable=true)
      * @Groups({"read:supplier"})
      */
     private $SUP_phone;
 
     /**
-     * @ORM\Column(type="string", length=40)
+     * @ORM\Column(type="string", length=40, nullable=true)
      * @Groups({"read:supplier"})
      */
     private $SUP_mail;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=true)
      * @Groups({"read:supplier"})
      */
     private $SUP_isArchive;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=true)
      * @Groups({"read:supplier"})
      */
     private $SUP_date_edit;
@@ -116,14 +116,22 @@ class Supplier
         return $this;
     }
 
-    public function getSUPPostalCode(): ?string
+    /**
+     * Get the value of SUP_zipCode
+     */
+    public function getSUP_zipCode(): string
     {
-        return $this->SUP_postal_code;
+        return $this->SUP_zipCode;
     }
 
-    public function setSUPPostalCode(string $SUP_postal_code): self
+    /**
+     * Set the value of SUP_zipCode
+     *
+     * @return  self
+     */
+    public function setSUP_zipCode($SUP_zipCode): self
     {
-        $this->SUP_postal_code = $SUP_postal_code;
+        $this->SUP_zipCode = $SUP_zipCode;
 
         return $this;
     }

@@ -128,7 +128,7 @@ class AppFixtures extends Fixture
             $supplier = new Supplier;
             $supplier->setSUPName($faker->word())
                 ->setSUPAddress($faker->streetAddress())
-                ->setSUPPostalCode($faker->postcode())
+                ->setSUP_zipCode($faker->postcode())
                 ->setSUPCity($faker->City())
                 ->setSUPPhone('0654545859')
                 ->setSUPMail($faker->email())
