@@ -55,7 +55,7 @@ php -S xxx.xxx.xxx.xxx:XXXX -t public
 
 ```
 symfony console --env=test doctrine:database:create
-ou
+or
 php bin/console --env=test doctrine:database:create 
 ``` 
 
@@ -63,14 +63,14 @@ php bin/console --env=test doctrine:database:create
 
 ```
 symfony console --env=test doctrine:schema:create
-ou
+or
 php bin/console --env=test doctrine:schema:create
 ```
 
 - Load the fixtures : 
 ```
 symfony console d:m:m --env=test
-ou
+or
 php bin/console d:m:m --env=test
 ```
 
