@@ -33,16 +33,6 @@ class Image
      */
     private $IMG_created_at;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class)
-     */
-    private $IMG_updated_by;
-
-    /**
-     * @ORM\Column(type="datetime_immutable", nullable=true)
-     */
-    private $IMG_updated_at;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -80,30 +70,6 @@ class Image
     public function setIMGCreatedAt(\DateTimeImmutable $IMG_created_at): self
     {
         $this->IMG_created_at = $IMG_created_at;
-
-        return $this;
-    }
-
-    public function getIMGUpdatedBy(): ?User
-    {
-        return $this->IMG_updated_by;
-    }
-
-    public function setIMGUpdatedBy(?User $IMG_updated_by): self
-    {
-        $this->IMG_updated_by = $IMG_updated_by;
-
-        return $this;
-    }
-
-    public function getIMGUpdatedAt(): ?\DateTimeImmutable
-    {
-        return $this->IMG_updated_at;
-    }
-
-    public function setIMGUpdatedAt(?\DateTimeImmutable $IMG_updated_at): self
-    {
-        $this->IMG_updated_at = $IMG_updated_at;
 
         return $this;
     }
