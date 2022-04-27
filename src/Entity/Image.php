@@ -2,17 +2,18 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\ImageRepository;
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+
 
 /**
  * @ORM\Entity(repositoryClass=ImageRepository::class)
  * @ApiResource(
+ *      collectionOperations={"POST"},
+ *      itemOperations={"GET", "DELETE"},
  *      normalizationContext={"groups"={"read:image"}},
- *      collectionOperations={"GET","POST"},
- *      itemOperations={"GET", "PUT", "DELETE"}
  * )
  */
 class Image
@@ -26,58 +27,27 @@ class Image
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"read:image"})
-     */
-    private $IMG_name;
-
-    /**
      * @ORM\Column(type="string", length=512)
      * @Groups({"read:image"})
      */
     private $IMG_uri;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\ManyToOne(targetEntity=User::class)
+     * @ORM\JoinColumn(nullable=false)
      * @Groups({"read:image"})
      */
-    private $IMG_date_edit;
+    private $IMG_created_by;
 
     /**
-     * @ORM\OneToOne(targetEntity=Ingredient::class, mappedBy="image", cascade={"persist", "remove"})
+     * @ORM\Column(type="datetime_immutable")
+     * @Groups({"read:image"})
      */
-    private $ingredient;
-
-    /**
-     * @ORM\OneToOne(targetEntity=Material::class, mappedBy="image", cascade={"persist", "remove"})
-     */
-    private $material;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Recipe::class, inversedBy="images")
-     */
-    private $recipe;
-
-    /**
-     * @ORM\OneToOne(targetEntity=Step::class, mappedBy="image", cascade={"persist", "remove"})
-     */
-    private $step;
+    private $IMG_created_at;
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getIMGName(): ?string
-    {
-        return $this->IMG_name;
-    }
-
-    public function setIMGName(?string $IMG_name): self
-    {
-        $this->IMG_name = $IMG_name;
-
-        return $this;
     }
 
     public function getIMGUri(): ?string
@@ -92,92 +62,26 @@ class Image
         return $this;
     }
 
-    public function getIMGDateEdit(): ?\DateTimeInterface
+    public function getIMGCreatedBy(): ?User
     {
-        return $this->IMG_date_edit;
+        return $this->IMG_created_by;
     }
 
-    public function setIMGDateEdit(\DateTimeInterface $IMG_date_edit): self
+    public function setIMGCreatedBy(?User $IMG_created_by): self
     {
-        $this->IMG_date_edit = $IMG_date_edit;
+        $this->IMG_created_by = $IMG_created_by;
 
         return $this;
     }
 
-    public function getIngredient(): ?Ingredient
+    public function getIMGCreatedAt(): ?\DateTimeImmutable
     {
-        return $this->ingredient;
+        return $this->IMG_created_at;
     }
 
-    public function setIngredient(?Ingredient $ingredient): self
+    public function setIMGCreatedAt(\DateTimeImmutable $IMG_created_at): self
     {
-        // unset the owning side of the relation if necessary
-        if ($ingredient === null && $this->ingredient !== null) {
-            $this->ingredient->setImage(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($ingredient !== null && $ingredient->getImage() !== $this) {
-            $ingredient->setImage($this);
-        }
-
-        $this->ingredient = $ingredient;
-
-        return $this;
-    }
-
-    public function getMaterial(): ?Material
-    {
-        return $this->material;
-    }
-
-    public function setMaterial(?Material $material): self
-    {
-        // unset the owning side of the relation if necessary
-        if ($material === null && $this->material !== null) {
-            $this->material->setImage(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($material !== null && $material->getImage() !== $this) {
-            $material->setImage($this);
-        }
-
-        $this->material = $material;
-
-        return $this;
-    }
-
-    public function getRecipe(): ?Recipe
-    {
-        return $this->recipe;
-    }
-
-    public function setRecipe(?Recipe $recipe): self
-    {
-        $this->recipe = $recipe;
-
-        return $this;
-    }
-
-    public function getStep(): ?Step
-    {
-        return $this->step;
-    }
-
-    public function setStep(?Step $step): self
-    {
-        // unset the owning side of the relation if necessary
-        if ($step === null && $this->step !== null) {
-            $this->step->setImage(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($step !== null && $step->getImage() !== $this) {
-            $step->setImage($this);
-        }
-
-        $this->step = $step;
+        $this->IMG_created_at = $IMG_created_at;
 
         return $this;
     }

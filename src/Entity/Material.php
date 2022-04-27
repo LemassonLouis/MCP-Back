@@ -40,11 +40,6 @@ class Material
     private $MAT_isArchive;
 
     /**
-     * @ORM\OneToOne(targetEntity=Image::class, inversedBy="material", cascade={"persist", "remove"})
-     */
-    private $image;
-
-    /**
      * @ORM\ManyToMany(targetEntity=Recipe::class, mappedBy="materials")
      */
     private $recipes;
@@ -79,18 +74,6 @@ class Material
     public function setMATIsArchive(bool $MAT_isArchive): self
     {
         $this->MAT_isArchive = $MAT_isArchive;
-
-        return $this;
-    }
-
-    public function getImage(): ?Image
-    {
-        return $this->image;
-    }
-
-    public function setImage(?Image $image): self
-    {
-        $this->image = $image;
 
         return $this;
     }

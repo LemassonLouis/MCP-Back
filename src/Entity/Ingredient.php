@@ -79,11 +79,6 @@ class Ingredient
     private $seasons;
 
     /**
-     * @ORM\OneToOne(targetEntity=Image::class, inversedBy="ingredient", cascade={"persist", "remove"})
-     */
-    private $image;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Supplier::class, inversedBy="ingredients")
      */
     private $supplier;
@@ -92,6 +87,11 @@ class Ingredient
      * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="ingredients")
      */
     private $categories;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Image::class, cascade={"persist", "remove"})
+     */
+    private $ING_image;
 
     public function __construct()
     {
@@ -215,18 +215,6 @@ class Ingredient
         return $this;
     }
 
-    public function getImage(): ?Image
-    {
-        return $this->image;
-    }
-
-    public function setImage(?Image $image): self
-    {
-        $this->image = $image;
-
-        return $this;
-    }
-
     public function getSupplier(): ?Supplier
     {
         return $this->supplier;
@@ -259,6 +247,18 @@ class Ingredient
     public function removeCategory(Category $category): self
     {
         $this->categories->removeElement($category);
+
+        return $this;
+    }
+
+    public function getINGImage(): ?Image
+    {
+        return $this->ING_image;
+    }
+
+    public function setINGImage(?Image $ING_image): self
+    {
+        $this->ING_image = $ING_image;
 
         return $this;
     }

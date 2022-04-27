@@ -114,9 +114,9 @@ class AppFixtures extends Fixture
         // IMAGES
         for ($img = 0; $img < 20; $img++) {
             $image = new Image;
-            $image->setIMGName($faker->colorName())
-                ->setIMGUri($faker->imageUrl())
-                ->setIMGDateEdit(new \DateTime());
+            $image->setIMGUri($faker->imageUrl())
+                ->setIMGCreatedBy($userAdmin)
+                ->setIMGCreatedAt(new \DateTimeImmutable());
 
             $manager->persist($image);
         }
