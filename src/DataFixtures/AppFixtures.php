@@ -5,7 +5,7 @@ namespace App\DataFixtures;
 use Faker\Factory;
 use App\Entity\Step;
 use App\Entity\User;
-// use App\Entity\Image;
+use App\Entity\Image;
 use App\Entity\Recipe;
 use App\Entity\Season;
 use App\Entity\Category;
@@ -112,15 +112,15 @@ class AppFixtures extends Fixture
 
 
         // IMAGES
-        // for ($img = 0; $img < 20; $img++) {
-        //     $image = new Image;
-        //     $image->setIMGName($faker->colorName())
-        //         ->setIMGUri($faker->imageUrl())
-        //         ->setIMGDateEdit(new \DateTime());
+        for ($img = 0; $img < 20; $img++) {
+            $image = new Image;
+            $image->setIMGUri($faker->imageUrl())
+                ->setIMGCreatedBy($userAdmin)
+                ->setIMGCreatedAt(new \DateTimeImmutable());
 
-        //     $manager->persist($image);
-        // }
-        // $manager->flush();
+            $manager->persist($image);
+        }
+        $manager->flush();
 
 
         // SUPPLIERS
