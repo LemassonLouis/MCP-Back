@@ -88,6 +88,11 @@ class Ingredient
      */
     private $categories;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Image::class, cascade={"persist", "remove"})
+     */
+    private $ING_image;
+
     public function __construct()
     {
         $this->seasons = new ArrayCollection();
@@ -242,6 +247,18 @@ class Ingredient
     public function removeCategory(Category $category): self
     {
         $this->categories->removeElement($category);
+
+        return $this;
+    }
+
+    public function getINGImage(): ?Image
+    {
+        return $this->ING_image;
+    }
+
+    public function setINGImage(?Image $ING_image): self
+    {
+        $this->ING_image = $ING_image;
 
         return $this;
     }
