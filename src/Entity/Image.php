@@ -3,10 +3,18 @@
 namespace App\Entity;
 
 use App\Repository\ImageRepository;
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 
 /**
  * @ORM\Entity(repositoryClass=ImageRepository::class)
+ * @ApiResource(
+ *      collectionOperations={"POST"},
+ *      itemOperations={"GET", "DELETE"},
+ *      normalizationContext={"groups"={"read:image"}},
+ * )
  */
 class Image
 {
@@ -14,22 +22,26 @@ class Image
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"read:image"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=512)
+     * @Groups({"read:image"})
      */
     private $IMG_uri;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class)
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"read:image"})
      */
     private $IMG_created_by;
 
     /**
      * @ORM\Column(type="datetime_immutable")
+     * @Groups({"read:image"})
      */
     private $IMG_created_at;
 
