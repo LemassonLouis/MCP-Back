@@ -90,18 +90,6 @@ class Recipe
      */
     private $materials;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="recipe")
-     */
-    private $images;
-
-    public function __construct()
-    {
-        $this->categories = new ArrayCollection();
-        $this->materials = new ArrayCollection();
-        $this->images = new ArrayCollection();
-    }
-
     public function getId(): ?int
     {
         return $this->id;
@@ -283,36 +271,6 @@ class Recipe
     public function removeMaterial(Material $material): self
     {
         $this->materials->removeElement($material);
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Image[]
-     */
-    public function getImages(): Collection
-    {
-        return $this->images;
-    }
-
-    public function addImage(Image $image): self
-    {
-        if (!$this->images->contains($image)) {
-            $this->images[] = $image;
-            $image->setRecipe($this);
-        }
-
-        return $this;
-    }
-
-    public function removeImage(Image $image): self
-    {
-        if ($this->images->removeElement($image)) {
-            // set the owning side to null (unless already changed)
-            if ($image->getRecipe() === $this) {
-                $image->setRecipe(null);
-            }
-        }
 
         return $this;
     }

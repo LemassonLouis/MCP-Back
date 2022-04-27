@@ -43,11 +43,6 @@ class Step
      */
     private $STE_date_edit;
 
-    /**
-     * @ORM\OneToOne(targetEntity=Image::class, inversedBy="step", cascade={"persist", "remove"})
-     */
-    private $image;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -85,18 +80,6 @@ class Step
     public function setSTEDateEdit(?\DateTimeInterface $STE_date_edit): self
     {
         $this->STE_date_edit = $STE_date_edit;
-
-        return $this;
-    }
-
-    public function getImage(): ?Image
-    {
-        return $this->image;
-    }
-
-    public function setImage(?Image $image): self
-    {
-        $this->image = $image;
 
         return $this;
     }

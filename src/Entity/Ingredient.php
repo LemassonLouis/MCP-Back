@@ -79,11 +79,6 @@ class Ingredient
     private $seasons;
 
     /**
-     * @ORM\OneToOne(targetEntity=Image::class, inversedBy="ingredient", cascade={"persist", "remove"})
-     */
-    private $image;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Supplier::class, inversedBy="ingredients")
      */
     private $supplier;
@@ -211,18 +206,6 @@ class Ingredient
         if ($this->seasons->removeElement($season)) {
             $season->removeIngredient($this);
         }
-
-        return $this;
-    }
-
-    public function getImage(): ?Image
-    {
-        return $this->image;
-    }
-
-    public function setImage(?Image $image): self
-    {
-        $this->image = $image;
 
         return $this;
     }
