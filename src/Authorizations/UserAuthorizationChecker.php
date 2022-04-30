@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @author Kevin Clément
+ */
+
 namespace App\Authorizations;
 
 use Symfony\Component\HttpFoundation\Request;

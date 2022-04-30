@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @author Kevin Clément
+ */
+
 namespace App\EventListener;
 
 use App\Entity\User;
