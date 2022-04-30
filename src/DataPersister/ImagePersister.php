@@ -7,7 +7,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use ApiPlatform\Core\DataPersister\DataPersisterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-class IngredientPersister implements DataPersisterInterface
+class ImagePersister implements DataPersisterInterface
 {
 
     protected $em;
