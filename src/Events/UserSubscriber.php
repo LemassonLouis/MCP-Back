@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @author Kevin Clément
+ */
+
 namespace App\Events;
 
 // use App\Entity\User;

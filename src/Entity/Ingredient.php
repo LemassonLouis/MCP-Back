@@ -2,12 +2,15 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\IngredientRepository;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
+
 
 /**
  * @ORM\Entity(repositoryClass=IngredientRepository::class)
@@ -18,7 +21,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *      normalizationContext={"groups"={"read:ingredient"}},
  *      collectionOperations={"GET","POST"},
  *      itemOperations={"GET", "PUT", "DELETE"}
- * )
+ * ),
+ * @ApiFilter(BooleanFilter::class, properties={"ING_vege", "ING_allergen"})
  */
 class Ingredient
 {
