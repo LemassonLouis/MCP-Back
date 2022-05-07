@@ -11,12 +11,12 @@ class ImagePersister implements DataPersisterInterface
 {
 
     protected $em;
-    protected $user;
+    // protected $user;
 
     public function __construct(EntityManagerInterface $em, TokenStorageInterface $token)
     {
         $this->em = $em;
-        $this->user = $token->getToken()->getUser();
+        // $this->user = $token->getToken()->getUser();
     }
 
     public function supports($data): bool
@@ -26,8 +26,8 @@ class ImagePersister implements DataPersisterInterface
 
     public function persist($data)
     {
-        $data->setIMGCreatedBy($this->user)
-            ->setIMGCreatedAt(new \DateTimeImmutable());
+        // $data->setIMGCreatedBy($this->user)
+        $data->setIMGCreatedAt(new \DateTimeImmutable());
         $this->em->persist($data);
         $this->em->flush();
     }
