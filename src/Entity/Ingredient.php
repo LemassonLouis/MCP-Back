@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * @author Genouel Vincent
+ * @email genouel.vincent@gmail.com
+ * @create date 2022-05-08 16:52:03
+ * @modify date 2022-05-08 16:52:03
+ * @desc [description]
+ */
+
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;

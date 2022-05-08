@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * @author Genouel Vincent
+ * @email genouel.vincent@gmail.com
+ * @create date 2022-05-08 16:51:26
+ * @modify date 2022-05-08 16:51:26
+ * @desc [description]
+ */
+
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
