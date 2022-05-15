@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * @author Jérémie Fauveau
+ * @create date 2022-05-15 22:04:07
+ * @modify date 2022-05-15 22:04:07
+ * @desc [description]
+ */
+
 namespace App\Tests\Unit;
 
 use App\Entity\Supplier;
@@ -41,10 +48,10 @@ class SupplierTest extends TestCase
     {
         $value = "14000";
 
-        $response = $this->Supplier->setSUPPostalCode($value);
+        $response = $this->Supplier->setSUP_zipCode($value);
 
         self::assertInstanceOf(Supplier::class, $response);
-        self::assertEquals($value, $this->Supplier->getSUPPostalCode());
+        self::assertEquals($value, $this->Supplier->getSUP_zipCode());
     }
 
     public function testGetSUPCity(): void
