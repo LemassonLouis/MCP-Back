@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\StepRepository;
 use ApiPlatform\Core\Annotation\ApiResource;
@@ -21,19 +23,20 @@ class Step
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"read:step"})
+     * @Groups({"read:step", "read:recipe"})
+     * 
      */
     private $id;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"read:step"})
+     * @Groups({"read:step", "read:recipe"})
      */
     private $STE_order;
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     * @Groups({"read:step"})
+     * @Groups({"read:step", "read:recipe"})
      */
     private $STE_description;
 
@@ -42,6 +45,16 @@ class Step
      * @Groups({"read:step"})
      */
     private $STE_date_edit;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Recipe::class, mappedBy="steps")
+     */
+    private $recipes;
+
+    public function __construct()
+    {
+        $this->recipes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -80,6 +93,33 @@ class Step
     public function setSTEDateEdit(?\DateTimeInterface $STE_date_edit): self
     {
         $this->STE_date_edit = $STE_date_edit;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Recipe[]
+     */
+    public function getRecipes(): Collection
+    {
+        return $this->recipes;
+    }
+
+    public function addRecipe(Recipe $recipe): self
+    {
+        if (!$this->recipes->contains($recipe)) {
+            $this->recipes[] = $recipe;
+            $recipe->addStep($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRecipe(Recipe $recipe): self
+    {
+        if ($this->recipes->removeElement($recipe)) {
+            $recipe->removeStep($this);
+        }
 
         return $this;
     }

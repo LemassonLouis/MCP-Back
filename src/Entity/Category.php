@@ -26,13 +26,13 @@ class Category
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"read:ingredient"})
+     * @Groups({"read:ingredient", "read:recipe"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     *  @Groups({"read:ingredient"})
+     *  @Groups({"read:ingredient", "read:recipe"})
      */
     private $name;
 
