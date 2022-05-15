@@ -13,6 +13,9 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 /**
  * @ORM\Entity(repositoryClass=RecipeRepository::class)
  * @ApiResource(
+ *      attributes={
+ *          "order"={"REC_name": "ASC"}
+ *      },
  *      collectionOperations={"GET","POST"},
  *      itemOperations={"GET", "PUT", "DELETE"}
  * ),
