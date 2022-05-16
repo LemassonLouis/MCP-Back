@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @author Jérémie Fauveau
  * @create date 2022-05-15 22:02:05
@@ -38,49 +39,49 @@ class Supplier
      * @ORM\Column(type="string", length=50)
      * @Groups({"read:supplier"})
      */
-    private $SUP_name;
+    private $name;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"read:supplier"})
      */
-    private $SUP_address;
+    private $address;
 
     /**
      * @ORM\Column(type="string", length=10, nullable=true)
      * @Groups({"read:supplier"})
      */
-    private $SUP_zipCode;
+    private $zip;
 
     /**
      * @ORM\Column(type="string", length=30, nullable=true)
      * @Groups({"read:supplier"})
      */
-    private $SUP_city;
+    private $city;
 
     /**
      * @ORM\Column(type="string", length=15, nullable=true)
      * @Groups({"read:supplier"})
      */
-    private $SUP_phone;
+    private $phone;
 
     /**
      * @ORM\Column(type="string", length=40, nullable=true)
      * @Groups({"read:supplier"})
      */
-    private $SUP_mail;
+    private $mail;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
      * @Groups({"read:supplier"})
      */
-    private $SUP_isArchive;
+    private $isArchive;
 
     /**
      * @ORM\Column(type="date", nullable=true)
      * @Groups({"read:supplier"})
      */
-    private $SUP_date_edit;
+    private $dateEdit;
 
     /**
      * @ORM\OneToMany(targetEntity=Ingredient::class, mappedBy="supplier")
@@ -96,110 +97,6 @@ class Supplier
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getSUPName(): ?string
-    {
-        return $this->SUP_name;
-    }
-
-    public function setSUPName(string $SUP_name): self
-    {
-        $this->SUP_name = $SUP_name;
-
-        return $this;
-    }
-
-    public function getSUPAddress(): ?string
-    {
-        return $this->SUP_address;
-    }
-
-    public function setSUPAddress(string $SUP_address): self
-    {
-        $this->SUP_address = $SUP_address;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of SUP_zipCode
-     */
-    public function getSUP_zipCode(): string
-    {
-        return $this->SUP_zipCode;
-    }
-
-    /**
-     * Set the value of SUP_zipCode
-     *
-     * @return  self
-     */
-    public function setSUP_zipCode($SUP_zipCode): self
-    {
-        $this->SUP_zipCode = $SUP_zipCode;
-
-        return $this;
-    }
-
-    public function getSUPCity(): ?string
-    {
-        return $this->SUP_city;
-    }
-
-    public function setSUPCity(string $SUP_city): self
-    {
-        $this->SUP_city = $SUP_city;
-
-        return $this;
-    }
-
-    public function getSUPPhone(): ?string
-    {
-        return $this->SUP_phone;
-    }
-
-    public function setSUPPhone(string $SUP_phone): self
-    {
-        $this->SUP_phone = $SUP_phone;
-
-        return $this;
-    }
-
-    public function getSUPMail(): ?string
-    {
-        return $this->SUP_mail;
-    }
-
-    public function setSUPMail(string $SUP_mail): self
-    {
-        $this->SUP_mail = $SUP_mail;
-
-        return $this;
-    }
-
-    public function getSUPIsArchive(): ?bool
-    {
-        return $this->SUP_isArchive;
-    }
-
-    public function setSUPIsArchive(bool $SUP_isArchive): self
-    {
-        $this->SUP_isArchive = $SUP_isArchive;
-
-        return $this;
-    }
-
-    public function getSUPDateEdit(): ?\DateTimeInterface
-    {
-        return $this->SUP_date_edit;
-    }
-
-    public function setSUPDateEdit(\DateTimeInterface $SUP_date_edit): self
-    {
-        $this->SUP_date_edit = $SUP_date_edit;
-
-        return $this;
     }
 
     /**
@@ -228,6 +125,166 @@ class Supplier
                 $ingredient->setSupplier(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * Get the value of name
+     */ 
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set the value of name
+     *
+     * @return  self
+     */ 
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of address
+     */ 
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * Set the value of address
+     *
+     * @return  self
+     */ 
+    public function setAddress($address)
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of zip
+     */ 
+    public function getZip()
+    {
+        return $this->zip;
+    }
+
+    /**
+     * Set the value of zip
+     *
+     * @return  self
+     */ 
+    public function setZip($zip)
+    {
+        $this->zip = $zip;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of city
+     */ 
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * Set the value of city
+     *
+     * @return  self
+     */ 
+    public function setCity($city)
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of phone
+     */ 
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * Set the value of phone
+     *
+     * @return  self
+     */ 
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of mail
+     */ 
+    public function getMail()
+    {
+        return $this->mail;
+    }
+
+    /**
+     * Set the value of mail
+     *
+     * @return  self
+     */ 
+    public function setMail($mail)
+    {
+        $this->mail = $mail;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of isArchive
+     */ 
+    public function getIsArchive()
+    {
+        return $this->isArchive;
+    }
+
+    /**
+     * Set the value of isArchive
+     *
+     * @return  self
+     */ 
+    public function setIsArchive($isArchive)
+    {
+        $this->isArchive = $isArchive;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of dateEdit
+     */ 
+    public function getDateEdit()
+    {
+        return $this->dateEdit;
+    }
+
+    /**
+     * Set the value of dateEdit
+     *
+     * @return  self
+     */ 
+    public function setDateEdit($dateEdit)
+    {
+        $this->dateEdit = $dateEdit;
 
         return $this;
     }
