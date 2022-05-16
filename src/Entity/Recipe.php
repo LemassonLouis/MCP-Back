@@ -8,15 +8,20 @@ use ApiPlatform\Core\Annotation\ApiFilter;
 use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 
 /**
  * @ORM\Entity(repositoryClass=RecipeRepository::class)
  * @ApiResource(
+ *      attributes={
+ *          "order"={"name": "ASC"}
+ *      },
+ *      normalizationContext={"groups"={"read:recipe"}},
  *      collectionOperations={"GET","POST"},
  *      itemOperations={"GET", "PUT", "DELETE"}
  * ),
- * @ApiFilter(BooleanFilter::class, properties={"REC_isTechnic"})
+ * @ApiFilter(BooleanFilter::class, properties={"isTechnic"})
  */
 
 class Recipe
@@ -25,66 +30,78 @@ class Recipe
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"read:recipe"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Groups({"read:recipe"})
      */
-    private $REC_name;
+    private $name;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups({"read:recipe"})
      */
-    private $REC_comment;
+    private $comment;
 
     /**
      * @ORM\Column(type="time", nullable=true)
+     * @Groups({"read:recipe"})
      */
-    private $REC_duration;
+    private $duration;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Groups({"read:recipe"})
      */
-    private $REC_portion;
+    private $portion;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
+     * @Groups({"read:recipe"})
      */
-    private $REC_internal;
+    private $internal;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
+     * @Groups({"read:recipe"})
      */
-    private $REC_moment;
+    private $moment;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Groups({"read:recipe"})
      */
-    private $REC_sellPrice;
+    private $sellPrice;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
+     * @Groups({"read:recipe"})
      */
-    private $REC_usable;
+    private $usable;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
+     * @Groups({"read:recipe"})
      */
-    private $REC_isTechnic;
+    private $isTechnic;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
+     * @Groups({"read:recipe"})
      */
-    private $REC_isArchive;
+    private $isArchive;
 
     /**
      * @ORM\Column(type="date", nullable=true)
      */
-    private $REC_date_edit;
+    private $date_edit;
 
     /**
      * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="recipes")
+     * @Groups({"read:recipe"})
      */
     private $categories;
 
@@ -93,6 +110,17 @@ class Recipe
      */
     private $materials;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Step::class, inversedBy="recipes")
+     * @Groups({"read:recipe"})
+     */
+    private $steps;
+
+    public function __construct()
+    {
+        $this->steps = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -100,143 +128,144 @@ class Recipe
 
     public function getName(): ?string
     {
-        return $this->REC_name;
+        return $this->name;
     }
 
-    public function setName(string $REC_name): self
+    public function setName(string $name): self
     {
-        $this->REC_name = $REC_name;
+        $this->name = $name;
 
         return $this;
     }
 
     public function getComment(): ?string
     {
-        return $this->REC_comment;
+        return $this->comment;
     }
 
-    public function setComment(?string $REC_comment): self
+    public function setComment(?string $comment): self
     {
-        $this->REC_comment = $REC_comment;
+        $this->comment = $comment;
 
         return $this;
     }
 
     public function getDuration(): ?\DateTimeInterface
     {
-        return $this->REC_duration;
+        return $this->duration;
     }
 
-    public function setDuration(?\DateTimeInterface $REC_duration): self
+    public function setDuration(?\DateTimeInterface $duration): self
     {
-        $this->REC_duration = $REC_duration;
+        $this->duration = $duration;
 
         return $this;
     }
 
     public function getPortion(): ?int
     {
-        return $this->REC_portion;
+        return $this->portion;
     }
 
-    public function setPortion(?int $REC_portion): self
+    public function setPortion(?int $portion): self
     {
-        $this->REC_portion = $REC_portion;
+        $this->portion = $portion;
 
         return $this;
     }
 
     public function getInternal(): ?bool
     {
-        return $this->REC_internal;
+        return $this->internal;
     }
 
-    public function setInternal(?bool $REC_internal): self
+    public function setInternal(?bool $internal): self
     {
-        $this->REC_internal = $REC_internal;
+        $this->internal = $internal;
 
         return $this;
     }
 
     public function getMoment(): ?bool
     {
-        return $this->REC_moment;
+        return $this->moment;
     }
 
-    public function setMoment(?bool $REC_moment): self
+    public function setMoment(?bool $moment): self
     {
-        $this->REC_moment = $REC_moment;
+        $this->moment = $moment;
 
         return $this;
     }
 
     public function getSellPrice(): ?int
     {
-        return $this->REC_sellPrice;
+        return $this->sellPrice;
     }
 
-    public function setSellPrice(?int $REC_sellPrice): self
+    public function setSellPrice(?int $sellPrice): self
     {
-        $this->REC_sellPrice = $REC_sellPrice;
+        $this->sellPrice = $sellPrice;
 
         return $this;
     }
 
     public function getUsable(): ?bool
     {
-        return $this->REC_usable;
+        return $this->usable;
     }
 
-    public function setUsable(?bool $REC_usable): self
+    public function setUsable(?bool $usable): self
     {
-        $this->REC_usable = $REC_usable;
+        $this->usable = $usable;
 
         return $this;
     }
 
     public function getIsTechnic(): ?bool
     {
-        return $this->REC_isTechnic;
+        return $this->isTechnic;
     }
 
-    public function setIsTechnic(?bool $REC_isTechnic): self
+    public function setIsTechnic(?bool $isTechnic): self
     {
-        $this->REC_isTechnic = $REC_isTechnic;
+        $this->isTechnic = $isTechnic;
 
         return $this;
     }
 
     public function getIsArchive(): ?bool
     {
-        return $this->REC_isArchive;
+        return $this->isArchive;
     }
 
-    public function setIsArchive(?bool $REC_isArchive): self
+    public function setIsArchive(?bool $isArchive): self
     {
-        $this->REC_isArchive = $REC_isArchive;
+        $this->isArchive = $isArchive;
 
         return $this;
     }
 
     public function getDateEdit(): ?\DateTimeInterface
     {
-        return $this->REC_date_edit;
+        return $this->date_edit;
     }
 
-    public function setDateEdit(?\DateTimeInterface $REC_date_edit): self
+    public function setDateEdit(?\DateTimeInterface $date_edit): self
     {
-        $this->REC_date_edit = $REC_date_edit;
+        $this->date_edit = $date_edit;
 
         return $this;
     }
 
     /**
      * @return Collection|Category[]
+     *  Remove because ERR : Return value must be of type Doctrine\\Common\\Collections\\Collection, null returned
      */
-    public function getCategories(): Collection
-    {
-        return $this->categories;
-    }
+    // public function getCategories(): Collection
+    // {
+    //     return $this->categories;
+    // }
 
     public function addCategory(Category $category): self
     {
@@ -274,6 +303,30 @@ class Recipe
     public function removeMaterial(Material $material): self
     {
         $this->materials->removeElement($material);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Step[]
+     */
+    public function getSteps(): Collection
+    {
+        return $this->steps;
+    }
+
+    public function addStep(Step $step): self
+    {
+        if (!$this->steps->contains($step)) {
+            $this->steps[] = $step;
+        }
+
+        return $this;
+    }
+
+    public function removeStep(Step $step): self
+    {
+        $this->steps->removeElement($step);
 
         return $this;
     }

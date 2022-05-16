@@ -28,7 +28,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *      },
  *      normalizationContext={"groups"={"read:ingredient"}},
  *      collectionOperations={"GET","POST"},
- *      itemOperations={"GET", "PUT", "DELETE"}
+ *      itemOperations={
+ *          "GET", 
+ *          "PUT", 
+ *          "DELETE"
+ *    }
  * ),
  * @ApiFilter(BooleanFilter::class, properties={"ING_vege", "ING_allergen"})
  */
@@ -86,7 +90,7 @@ class Ingredient
 
     /**
      * @ORM\ManyToMany(targetEntity=Season::class, mappedBy="ingredient")
-     * @Groups({"read:ingredient"})
+     *
      */
     private $seasons;
 
@@ -97,6 +101,7 @@ class Ingredient
 
     /**
      * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="ingredients")
+     *  @Groups({"read:ingredient"})
      */
     private $categories;
 
