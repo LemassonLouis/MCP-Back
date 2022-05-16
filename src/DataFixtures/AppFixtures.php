@@ -126,14 +126,14 @@ class AppFixtures extends Fixture
         // SUPPLIERS
         for ($i = 0; $i < 15; $i++) {
             $supplier = new Supplier;
-            $supplier->setSUPName($faker->word())
-                ->setSUPAddress($faker->streetAddress())
-                ->setSUP_zipCode($faker->postcode())
-                ->setSUPCity($faker->City())
-                ->setSUPPhone('0654545859')
-                ->setSUPMail($faker->email())
-                ->setSUPIsArchive($faker->boolean(80))
-                ->setSUPDateEdit(new \DateTimeImmutable());
+            $supplier->setName($faker->word())
+                ->setAddress($faker->streetAddress())
+                ->setZip($faker->postcode())
+                ->setCity($faker->City())
+                ->setPhone('0654545859')
+                ->setMail($faker->email())
+                ->setIsArchive($faker->boolean(80))
+                ->setDateEdit(new \DateTimeImmutable());
 
             $manager->persist($supplier);
         }
