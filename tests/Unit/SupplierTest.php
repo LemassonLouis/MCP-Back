@@ -28,79 +28,79 @@ class SupplierTest extends TestCase
     {
         $value = 'Isetert Corporation';
 
-        $response = $this->Supplier->setSUPName($value);
+        $response = $this->Supplier->setName($value);
 
         self::assertInstanceOf(Supplier::class, $response);
-        self::assertEquals($value, $this->Supplier->getSUPName());
+        self::assertEquals($value, $this->Supplier->getName());
     }
 
     public function testGetSUPAddress(): void
     {
         $value = "25 rue Dupont";
 
-        $response = $this->Supplier->setSUPAddress($value);
+        $response = $this->Supplier->setAddress($value);
 
         self::assertInstanceOf(Supplier::class, $response);
-        self::assertEquals($value, $this->Supplier->getSUPAddress());
+        self::assertEquals($value, $this->Supplier->getAddress());
     }
 
     public function testGetSUPPostalCode(): void
     {
         $value = "14000";
 
-        $response = $this->Supplier->setSUP_zipCode($value);
+        $response = $this->Supplier->setZip($value);
 
         self::assertInstanceOf(Supplier::class, $response);
-        self::assertEquals($value, $this->Supplier->getSUP_zipCode());
+        self::assertEquals($value, $this->Supplier->getZip());
     }
 
     public function testGetSUPCity(): void
     {
         $value = "Bordeaux";
 
-        $response = $this->Supplier->setSUPCity($value);
+        $response = $this->Supplier->setCity($value);
 
         self::assertInstanceOf(Supplier::class, $response);
-        self::assertEquals($value, $this->Supplier->getSUPCity());
+        self::assertEquals($value, $this->Supplier->getCity());
     }
 
     public function testGetSUPPhone(): void
     {
         $value = "+33201020304";
 
-        $response = $this->Supplier->setSUPPhone($value);
+        $response = $this->Supplier->setPhone($value);
 
         self::assertInstanceOf(Supplier::class, $response);
-        self::assertEquals($value, $this->Supplier->getSUPPhone());
+        self::assertEquals($value, $this->Supplier->getPhone());
     }
 
     public function testGetSUPMail(): void
     {
         $value = "test@test.com";
 
-        $response = $this->Supplier->setSUPMail($value);
+        $response = $this->Supplier->setMail($value);
 
         self::assertInstanceOf(Supplier::class, $response);
-        self::assertEquals($value, $this->Supplier->getSUPMail());
+        self::assertEquals($value, $this->Supplier->getMail());
     }
 
     public function testGetSUPIsArchive(): void
     {
         $value = false;
 
-        $response = $this->Supplier->setSUPIsArchive($value);
+        $response = $this->Supplier->setIsArchive($value);
 
         self::assertInstanceOf(Supplier::class, $response);
-        self::assertEquals($value, $this->Supplier->getSUPIsArchive());
+        self::assertEquals($value, $this->Supplier->getIsArchive());
     }
 
     public function testGetSUPDateEdit(): void
     {
         $value = new DateTime();
 
-        $response = $this->Supplier->setSUPDateEdit($value);
+        $response = $this->Supplier->setDateEdit($value);
 
         self::assertInstanceOf(Supplier::class, $response);
-        self::assertEquals($value, $this->Supplier->getSUPDateEdit());
+        self::assertEquals($value, $this->Supplier->getDateEdit());
     }
 }

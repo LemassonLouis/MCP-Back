@@ -129,10 +129,10 @@ class Supplier
         return $this;
     }
 
-    /**
+     /**
      * Get the value of name
-     */ 
-    public function getName()
+     */
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -141,8 +141,8 @@ class Supplier
      * Set the value of name
      *
      * @return  self
-     */ 
-    public function setName($name)
+     */
+    public function setName($name): self
     {
         $this->name = $name;
 
@@ -151,8 +151,8 @@ class Supplier
 
     /**
      * Get the value of address
-     */ 
-    public function getAddress()
+     */
+    public function getAddress(): ?string
     {
         return $this->address;
     }
@@ -161,8 +161,8 @@ class Supplier
      * Set the value of address
      *
      * @return  self
-     */ 
-    public function setAddress($address)
+     */
+    public function setAddress($address): self
     {
         $this->address = $address;
 
@@ -171,8 +171,8 @@ class Supplier
 
     /**
      * Get the value of zip
-     */ 
-    public function getZip()
+     */
+    public function getZip(): ?string
     {
         return $this->zip;
     }
@@ -181,8 +181,8 @@ class Supplier
      * Set the value of zip
      *
      * @return  self
-     */ 
-    public function setZip($zip)
+     */
+    public function setZip($zip): self
     {
         $this->zip = $zip;
 
@@ -191,8 +191,8 @@ class Supplier
 
     /**
      * Get the value of city
-     */ 
-    public function getCity()
+     */
+    public function getCity(): ?string
     {
         return $this->city;
     }
@@ -201,8 +201,8 @@ class Supplier
      * Set the value of city
      *
      * @return  self
-     */ 
-    public function setCity($city)
+     */
+    public function setCity($city): self
     {
         $this->city = $city;
 
@@ -211,8 +211,8 @@ class Supplier
 
     /**
      * Get the value of phone
-     */ 
-    public function getPhone()
+     */
+    public function getPhone(): ?string
     {
         return $this->phone;
     }
@@ -221,8 +221,8 @@ class Supplier
      * Set the value of phone
      *
      * @return  self
-     */ 
-    public function setPhone($phone)
+     */
+    public function setPhone($phone): self
     {
         $this->phone = $phone;
 
@@ -231,8 +231,8 @@ class Supplier
 
     /**
      * Get the value of mail
-     */ 
-    public function getMail()
+     */
+    public function getMail(): ?string
     {
         return $this->mail;
     }
@@ -241,8 +241,8 @@ class Supplier
      * Set the value of mail
      *
      * @return  self
-     */ 
-    public function setMail($mail)
+     */
+    public function setMail($mail): self
     {
         $this->mail = $mail;
 
@@ -251,8 +251,8 @@ class Supplier
 
     /**
      * Get the value of isArchive
-     */ 
-    public function getIsArchive()
+     */
+    public function getIsArchive(): ?bool
     {
         return $this->isArchive;
     }
@@ -261,8 +261,8 @@ class Supplier
      * Set the value of isArchive
      *
      * @return  self
-     */ 
-    public function setIsArchive($isArchive)
+     */
+    public function setIsArchive($isArchive): self
     {
         $this->isArchive = $isArchive;
 
@@ -271,8 +271,8 @@ class Supplier
 
     /**
      * Get the value of dateEdit
-     */ 
-    public function getDateEdit()
+     */
+    public function getDateEdit(): ?\DateTimeInterface
     {
         return $this->dateEdit;
     }
@@ -281,8 +281,8 @@ class Supplier
      * Set the value of dateEdit
      *
      * @return  self
-     */ 
-    public function setDateEdit($dateEdit)
+     */
+    public function setDateEdit($dateEdit): self
     {
         $this->dateEdit = $dateEdit;
 
