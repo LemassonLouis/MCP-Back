@@ -5,21 +5,37 @@
 namespace App\Controller;
 
 use App\Entity\Image;
+use App\Entity\User;
+use App\Repository\UserRepository;
 use DateTimeImmutable;
-use RuntimeException;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Attribute\AsController;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use ApiPlatform\Core\Api\IriConverterInterface;
 
-class ImageController
+#[AsController]
+final class ImageController extends AbstractController
 {
-
-    public function __invoke(Image $image, Request $request)
+    public function __invoke(Request $request, IriConverterInterface $iriConverter): Image
     {
-        $image = $request->attributes->get('data');
-        if (!($image instanceof Image)) {
-            throw new RuntimeException('Image attendu');
+        // $userRepo = new UserRepository();
+
+        $uploadedFile = $request->files->get('file');
+        if (!$uploadedFile) {
+            throw new BadRequestHttpException('"file" is required');
         }
-        $image->setFile($request->files->get('file'));
-        $image->setIMGCreatedAt(new DateTimeImmutable());
+
+        $data = $request->request->all();
+        $user = $iriConverter->getItemFromIri($data['iMGCreatedBy']);
+
+        $image = new Image();
+        $image->setFile($uploadedFile)
+            ->setFileName("")
+            ->setIMGUri("")
+            ->setIMGCreatedBy($user)
+            ->setIMGCreatedAt(new DateTimeImmutable());
+
         return $image;
     }
 }

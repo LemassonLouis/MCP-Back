@@ -6,28 +6,30 @@ namespace App\Entity;
 
 use App\Repository\ImageRepository;
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Controller\ImageController;
 use Doctrine\ORM\Mapping as ORM;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
-use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+
 
 
 /**
  * @ORM\Entity(repositoryClass=ImageRepository::class)
  * @Vich\Uploadable()
  * @ApiResource(
- *      collectionOperations={},
- *      itemOperations={
- *          "GET",
- *          "DELETE",
- *          "images"={
- *              "method"="POST",
- *              "path"="/images",
+ *      normalizationContext={"groups"={"read:image"}},
+ *      collectionOperations={
+ *          "post"={
  *              "deserialize"=false,
- *              "controller"=ImageController::class
+ *              "controller"=ImageController::class,
+ *              "input_formats"={"multipart"={"multipart/form-data"}}
  *          }
  *      },
- *      normalizationContext={"groups"={"read:image"}},
+ *      itemOperations={
+ *          "get",
+ *          "delete"
+ *      },
  * )
  */
 class Image
@@ -48,9 +50,15 @@ class Image
 
     /**
      * @var File|null
-     * @Vich\UploadableField(mapping="image", fileNameProperty="$IMG_uri")
+     * @Vich\UploadableField(mapping="images", fileNameProperty="fileName")
      */
     private $file;
+
+    /**
+     * @var string|null
+     * @Groups({"read:image"}) // temporaire
+     */
+    private $fileName;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class)
@@ -128,6 +136,31 @@ class Image
     public function setFile($file)
     {
         $this->file = $file;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the value of fileName
+     *
+     * @return  string|null
+     */
+    public function getFileName()
+    {
+        return $this->fileName;
+    }
+
+    /**
+     * Set the value of fileName
+     *
+     * @param  string|null  $fileName
+     *
+     * @return  self
+     */
+    public function setFileName($fileName)
+    {
+        $this->fileName = $fileName;
 
         return $this;
     }
