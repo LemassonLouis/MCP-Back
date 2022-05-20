@@ -1,0 +1,10 @@
+# LEMASSON Louis
+
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+        images:
+            uri_prefix: /downloads/images
+            upload_destination: '%kernel.project_dir%/public/downloads/images'
+            namer: Vich\UploaderBundle\Naming\OrignameNamer

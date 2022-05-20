@@ -1,19 +1,34 @@
 <?php
+// LEMASSON Louis
 
 namespace App\Entity;
 
 use App\Repository\ImageRepository;
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Controller\ImageController;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+
 
 
 /**
  * @ORM\Entity(repositoryClass=ImageRepository::class)
+ * @Vich\Uploadable()
  * @ApiResource(
- *      collectionOperations={"POST"},
- *      itemOperations={"GET", "DELETE"},
  *      normalizationContext={"groups"={"read:image"}},
+ *      collectionOperations={
+ *          "post"={
+ *              "deserialize"=false,
+ *              "controller"=ImageController::class,
+ *              "input_formats"={"multipart"={"multipart/form-data"}}
+ *          }
+ *      },
+ *      itemOperations={
+ *          "get",
+ *          "delete"
+ *      },
  * )
  */
 class Image
@@ -31,6 +46,17 @@ class Image
      * @Groups({"read:image"})
      */
     private $IMG_uri;
+
+    /**
+     * @var File|null
+     * @Vich\UploadableField(mapping="images", fileNameProperty="fileName")
+     */
+    private $file;
+
+    /**
+     * @var string|null
+     */
+    private $fileName;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class)
@@ -82,6 +108,55 @@ class Image
     public function setIMGCreatedAt(\DateTimeImmutable $IMG_created_at): self
     {
         $this->IMG_created_at = $IMG_created_at;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of file
+     *
+     * @return  File|null
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * Set the value of file
+     *
+     * @param  File|null  $file
+     *
+     * @return  self
+     */
+    public function setFile($file)
+    {
+        $this->file = $file;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the value of fileName
+     *
+     * @return  string|null
+     */
+    public function getFileName()
+    {
+        return $this->fileName;
+    }
+
+    /**
+     * Set the value of fileName
+     *
+     * @param  string|null  $fileName
+     *
+     * @return  self
+     */
+    public function setFileName($fileName)
+    {
+        $this->fileName = $fileName;
 
         return $this;
     }

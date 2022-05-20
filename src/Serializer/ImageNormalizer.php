@@ -1,0 +1,38 @@
+<?php
+// LEMASSON Louis
+
+namespace App\Serializer;
+
+use App\Entity\Image;
+use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
+use Vich\UploaderBundle\Storage\StorageInterface;
+
+final class ImageNormalizer implements ContextAwareNormalizerInterface, NormalizerAwareInterface
+{
+    use NormalizerAwareTrait;
+
+    private const ALREADY_CALLED = 'AppImageNormalizerAlreadyCalled';
+
+    public function __construct(private StorageInterface $storage)
+    {
+    }
+
+    public function supportsNormalization($data, ?string $format = null, array $context = [])
+    {
+        return !isset($context[self::ALREADY_CALLED]) && $data instanceof Image;
+    }
+
+    /**
+     * @param Image $object
+     */
+    public function normalize($object, ?string $format = null, array $context = [])
+    {
+        $context[self::ALREADY_CALLED] = true;
+
+        $object->setIMGUri($this->storage->resolveUri($object, 'file'));
+
+        return $this->normalizer->normalize($object, $format, $context);
+    }
+}
