@@ -1,11 +1,9 @@
 <?php
-
-// LEMASON Louis
+// LEMASSON Louis
 
 namespace App\Controller;
 
 use App\Entity\Image;
-use App\Entity\User;
 use App\Repository\UserRepository;
 use DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,8 +17,6 @@ final class ImageController extends AbstractController
 {
     public function __invoke(Request $request, IriConverterInterface $iriConverter): Image
     {
-        // $userRepo = new UserRepository();
-
         $uploadedFile = $request->files->get('file');
         if (!$uploadedFile) {
             throw new BadRequestHttpException('"file" is required');

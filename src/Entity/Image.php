@@ -1,5 +1,4 @@
 <?php
-
 // LEMASSON Louis
 
 namespace App\Entity;
@@ -56,7 +55,6 @@ class Image
 
     /**
      * @var string|null
-     * @Groups({"read:image"}) // temporaire
      */
     private $fileName;
 
@@ -89,8 +87,6 @@ class Image
 
         return $this;
     }
-
-
 
     public function getIMGCreatedBy(): ?User
     {

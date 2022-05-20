@@ -1,20 +1,16 @@
 <?php
+// LEMASSON Louis
 
 namespace App\Serializer;
 
 use App\Entity\Image;
-use Symfony\Component\Serializer\Exception\CircularReferenceException;
-use Symfony\Component\Serializer\Exception\ExceptionInterface;
-use Symfony\Component\Serializer\Exception\InvalidArgumentException;
-use Symfony\Component\Serializer\Exception\LogicException;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Vich\UploaderBundle\Storage\StorageInterface;
 
-class ImageSerializer implements ContextAwareNormalizerInterface, NormalizerAwareInterface
+final class ImageNormalizer implements ContextAwareNormalizerInterface, NormalizerAwareInterface
 {
-
     use NormalizerAwareTrait;
 
     private const ALREADY_CALLED = 'AppImageNormalizerAlreadyCalled';
@@ -33,11 +29,9 @@ class ImageSerializer implements ContextAwareNormalizerInterface, NormalizerAwar
      */
     public function normalize($object, ?string $format = null, array $context = [])
     {
-        $object->setIMGUri($this->storage->resolveUri($object, 'file'));
-        // $object->setFileName("test");
-        // $object->setIMGUri("/downloads/images/");
-
         $context[self::ALREADY_CALLED] = true;
+
+        $object->setIMGUri($this->storage->resolveUri($object, 'file'));
 
         return $this->normalizer->normalize($object, $format, $context);
     }
