@@ -42,13 +42,13 @@ class Ingredient
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"read:ingredient"})
+     * @Groups({"read:ingredient", "read:supplier" })
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=64)
-     * @Groups({"read:ingredient"})
+     * @Groups({"read:ingredient", "read:supplier"})
      */
     private $ING_name;
 
