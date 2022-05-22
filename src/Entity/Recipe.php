@@ -111,14 +111,13 @@ class Recipe
     private $materials;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Step::class, inversedBy="recipes")
-     * @Groups({"read:recipe"})
+     * @ORM\OneToMany(targetEntity=Step::class, mappedBy="STE_in_recipe_id")
      */
-    private $steps;
+    private $REC_have_steps;
 
     public function __construct()
     {
-        $this->steps = new ArrayCollection();
+        $this->REC_have_steps = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -310,23 +309,29 @@ class Recipe
     /**
      * @return Collection|Step[]
      */
-    public function getSteps(): Collection
+    public function getRECHaveSteps(): Collection
     {
-        return $this->steps;
+        return $this->REC_have_steps;
     }
 
-    public function addStep(Step $step): self
+    public function addRECHaveStep(Step $rECHaveStep): self
     {
-        if (!$this->steps->contains($step)) {
-            $this->steps[] = $step;
+        if (!$this->REC_have_steps->contains($rECHaveStep)) {
+            $this->REC_have_steps[] = $rECHaveStep;
+            $rECHaveStep->setSTEInRecipeId($this);
         }
 
         return $this;
     }
 
-    public function removeStep(Step $step): self
+    public function removeRECHaveStep(Step $rECHaveStep): self
     {
-        $this->steps->removeElement($step);
+        if ($this->REC_have_steps->removeElement($rECHaveStep)) {
+            // set the owning side to null (unless already changed)
+            if ($rECHaveStep->getSTEInRecipeId() === $this) {
+                $rECHaveStep->setSTEInRecipeId(null);
+            }
+        }
 
         return $this;
     }

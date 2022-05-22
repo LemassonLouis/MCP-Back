@@ -9,6 +9,8 @@ use App\Repository\StepRepository;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
 
+
+// TODO : API access
 /**
  * @ORM\Entity(repositoryClass=StepRepository::class)
  * @ApiResource(
@@ -41,11 +43,6 @@ class Step
     private $STE_order;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Recipe::class, mappedBy="steps")
-     */
-    private $recipes;
-
-    /**
      * @ORM\Column(type="datetime_immutable")
      */
     private $STE_Created_At;
@@ -66,10 +63,21 @@ class Step
      */
     private $STE_Updated_By;
 
-    public function __construct()
-    {
-        $this->recipes = new ArrayCollection();
-    }
+    /**
+     * @ORM\ManyToOne(targetEntity=Recipe::class, inversedBy="REC_have_steps")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $STE_in_recipe_id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Recipe::class)
+     */
+    private $STE_have_recipe_id;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Image::class, cascade={"persist", "remove"})
+     */
+    private $STE_image_id;
 
     public function getId(): ?int
     {
@@ -96,33 +104,6 @@ class Step
     public function setSTEOrder(int $STE_order): self
     {
         $this->STE_order = $STE_order;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Recipe[]
-     */
-    public function getRecipes(): Collection
-    {
-        return $this->recipes;
-    }
-
-    public function addRecipe(Recipe $recipe): self
-    {
-        if (!$this->recipes->contains($recipe)) {
-            $this->recipes[] = $recipe;
-            $recipe->addStep($this);
-        }
-
-        return $this;
-    }
-
-    public function removeRecipe(Recipe $recipe): self
-    {
-        if ($this->recipes->removeElement($recipe)) {
-            $recipe->removeStep($this);
-        }
 
         return $this;
     }
@@ -171,6 +152,42 @@ class Step
     public function setSTEUpdatedBy(?User $STE_Updated_By): self
     {
         $this->STE_Updated_By = $STE_Updated_By;
+
+        return $this;
+    }
+
+    public function getSTEInRecipeId(): ?Recipe
+    {
+        return $this->STE_in_recipe_id;
+    }
+
+    public function setSTEInRecipeId(?Recipe $STE_in_recipe_id): self
+    {
+        $this->STE_in_recipe_id = $STE_in_recipe_id;
+
+        return $this;
+    }
+
+    public function getSTEHaveRecipeId(): ?Recipe
+    {
+        return $this->STE_have_recipe_id;
+    }
+
+    public function setSTEHaveRecipeId(?Recipe $STE_have_recipe_id): self
+    {
+        $this->STE_have_recipe_id = $STE_have_recipe_id;
+
+        return $this;
+    }
+
+    public function getSTEImageId(): ?Image
+    {
+        return $this->STE_image_id;
+    }
+
+    public function setSTEImageId(?Image $STE_image_id): self
+    {
+        $this->STE_image_id = $STE_image_id;
 
         return $this;
     }
