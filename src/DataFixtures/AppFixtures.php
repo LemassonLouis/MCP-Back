@@ -151,6 +151,37 @@ class AppFixtures extends Fixture
         $manager->flush();
 
 
+        // TYPICAL STEP/RECIPE
+        $simpleRecipe = new Recipe();
+        $simpleRecipe->setName("Recette avec une étape");
+
+        $simpleStep = new Step;
+        $simpleStep->setSTEDescription($faker->text(100))
+            ->setSTEOrder($faker->numberBetween(1, 4))
+            ->setSTECreatedBy($userAdmin)
+            ->setSTECreatedAt(new \DateTimeImmutable())
+            ->setSTEInRecipeId($simpleRecipe);
+
+        $manager->persist($simpleStep);
+        $manager->persist($simpleRecipe);
+
+        $recipeHaveRecipeInStep = new Recipe();
+        $recipeHaveRecipeInStep->setName("Recette avec une étape qui contient une recette avec une étape");
+
+        $stepWithRecipeIn = new Step;
+        $stepWithRecipeIn->setSTEOrder(1)
+            ->setSTECreatedBy($userAdmin)
+            ->setSTECreatedAt(new \DateTimeImmutable())
+            ->setSTEInRecipeId($recipeHaveRecipeInStep)
+            ->setSTEHaveRecipeId($simpleRecipe);
+
+
+        $manager->persist($stepWithRecipeIn);
+        $manager->persist($recipeHaveRecipeInStep);
+        $manager->flush();
+
+
+
         // RECIPES
         for ($i = 0; $i < 16; $i++) {
             $recipe = new Recipe;
@@ -165,6 +196,18 @@ class AppFixtures extends Fixture
                 ->setIsTechnic($faker->boolean(50))
                 ->setIsArchive($faker->boolean(50))
                 ->setDateEdit(new \DateTimeImmutable());
+
+            // STEP
+            for ($s = 0; $s < $faker->numberBetween(1, 4); $s++) {
+                $step = new Step;
+                $step->setSTEDescription($faker->text(100))
+                    ->setSTEOrder($faker->numberBetween(1, 4))
+                    ->setSTECreatedBy($userAdmin)
+                    ->setSTECreatedAt(new \DateTimeImmutable())
+                    ->setSTEInRecipeId($recipe);
+
+                $manager->persist($step);
+            }
 
             $manager->persist($recipe);
         }
@@ -188,19 +231,6 @@ class AppFixtures extends Fixture
                 ->setMATIsArchive($faker->boolean(80));
 
             $manager->persist($material);
-        }
-        $manager->flush();
-
-
-        // STEPS
-        for ($i = 0; $i < 40; $i++) {
-            $step = new Step;
-            $step->setSTEDescription($faker->text(100))
-                ->setSTEOrder($faker->numberBetween(1, 5))
-                ->setSTECreatedBy($userAdmin)
-                ->setSTECreatedAt(new \DateTimeImmutable());
-
-            $manager->persist($step);
         }
         $manager->flush();
     }
