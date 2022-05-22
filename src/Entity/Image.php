@@ -66,7 +66,7 @@ class Image
     private $IMG_created_by;
 
     /**
-     * @ORM\Column(type="datetime_immutable")
+     * @ORM\Column(type="datetime_immutable", nullable=false)
      * @Groups({"read:image"})
      */
     private $IMG_created_at;

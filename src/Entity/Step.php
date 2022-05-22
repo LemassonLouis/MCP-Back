@@ -29,27 +29,42 @@ class Step
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
-     * @Groups({"read:step", "read:recipe"})
-     */
-    private $STE_order;
-
-    /**
      * @ORM\Column(type="text", nullable=true)
      * @Groups({"read:step", "read:recipe"})
      */
     private $STE_description;
 
     /**
-     * @ORM\Column(type="date", nullable=true)
-     * @Groups({"read:step"})
+     * @ORM\Column(type="integer")
+     * @Groups({"read:step", "read:recipe"})
      */
-    private $STE_date_edit;
+    private $STE_order;
 
     /**
      * @ORM\ManyToMany(targetEntity=Recipe::class, mappedBy="steps")
      */
     private $recipes;
+
+    /**
+     * @ORM\Column(type="datetime_immutable")
+     */
+    private $STE_Created_At;
+
+    /**
+     * @ORM\Column(type="datetime_immutable", nullable=true)
+     */
+    private $STE_Updated_At;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $STE_Created_By;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class)
+     */
+    private $STE_Updated_By;
 
     public function __construct()
     {
@@ -59,18 +74,6 @@ class Step
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getSTEOrder(): ?int
-    {
-        return $this->STE_order;
-    }
-
-    public function setSTEOrder(int $STE_order): self
-    {
-        $this->STE_order = $STE_order;
-
-        return $this;
     }
 
     public function getSTEDescription(): ?string
@@ -85,14 +88,14 @@ class Step
         return $this;
     }
 
-    public function getSTEDateEdit(): ?\DateTimeInterface
+    public function getSTEOrder(): ?int
     {
-        return $this->STE_date_edit;
+        return $this->STE_order;
     }
 
-    public function setSTEDateEdit(?\DateTimeInterface $STE_date_edit): self
+    public function setSTEOrder(int $STE_order): self
     {
-        $this->STE_date_edit = $STE_date_edit;
+        $this->STE_order = $STE_order;
 
         return $this;
     }
@@ -120,6 +123,54 @@ class Step
         if ($this->recipes->removeElement($recipe)) {
             $recipe->removeStep($this);
         }
+
+        return $this;
+    }
+
+    public function getSTECreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->STE_Created_At;
+    }
+
+    public function setSTECreatedAt(\DateTimeImmutable $STE_Created_At): self
+    {
+        $this->STE_Created_At = $STE_Created_At;
+
+        return $this;
+    }
+
+    public function getSTEUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->STE_Updated_At;
+    }
+
+    public function setSTEUpdatedAt(?\DateTimeImmutable $STE_Updated_At): self
+    {
+        $this->STE_Updated_At = $STE_Updated_At;
+
+        return $this;
+    }
+
+    public function getSTECreatedBy(): ?User
+    {
+        return $this->STE_Created_By;
+    }
+
+    public function setSTECreatedBy(?User $STE_Created_By): self
+    {
+        $this->STE_Created_By = $STE_Created_By;
+
+        return $this;
+    }
+
+    public function getSTEUpdatedBy(): ?User
+    {
+        return $this->STE_Updated_By;
+    }
+
+    public function setSTEUpdatedBy(?User $STE_Updated_By): self
+    {
+        $this->STE_Updated_By = $STE_Updated_By;
 
         return $this;
     }

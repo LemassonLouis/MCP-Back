@@ -195,9 +195,10 @@ class AppFixtures extends Fixture
         // STEPS
         for ($i = 0; $i < 40; $i++) {
             $step = new Step;
-            $step->setSTEOrder($faker->numberBetween(1, 5))
-                ->setSTEDescription($faker->text(100))
-                ->setSTEDateEdit(new \DateTimeImmutable());
+            $step->setSTEDescription($faker->text(100))
+                ->setSTEOrder($faker->numberBetween(1, 5))
+                ->setSTECreatedBy($userAdmin)
+                ->setSTECreatedAt(new \DateTimeImmutable());
 
             $manager->persist($step);
         }
